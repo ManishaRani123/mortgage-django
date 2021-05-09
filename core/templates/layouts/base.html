@@ -4,7 +4,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
 	<title>
-         {% block title %}{% endblock %} | COVID19 Rapid Response (CRR) : Ministry of Health
+         {% block title %}{% endblock %} | {{appName}}
     </title>
 
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
@@ -51,9 +51,6 @@
 		</div>
         
 		{% if request.user.is_authenticated %}
-
-			<!-- Custom template | don't include it in your project! -->
-			{% include 'includes/configuration-plugin.html' %}
 
 		{% endif %}		
 

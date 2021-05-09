@@ -21,12 +21,7 @@
 							<div class="clearfix"></div>
 
 							<div class="collapse in" id="collapseExample">
-								<ul class="nav">
-									<li>
-										<a href="#profile">
-											<span class="link-collapse">My Profile</span>
-										</a>
-									</li>
+								<ul class="nav">									
 									<li>
 										<a href="{% url 'logout' %}">
 											<span class="link-collapse">Logout</span>
@@ -81,14 +76,6 @@
 					</ul>
 				{% else %}
 					<ul class="nav nav-primary">
-						<li class="nav-item {% if 'covid19/bedrequest' in segment %} active {% endif %}">
-							<a href="/covid19/bedrequest">
-								<i class="fas fa-bed"></i>
-								<p>Bed Request</p>
-								<span class="badge badge-success">4</span>
-							</a>
-						</li>
-
 						<li class="nav-item {% if '/covid19/bedrequest' in segment %} active {% endif %}">
 							<a href="/covid19/bedrequest">
 								<i class="fas fa-bed"></i>
