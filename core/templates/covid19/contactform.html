@@ -1,0 +1,78 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Datatables {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="content">
+        <div class="page-inner">
+            <div class="page-header">
+                <h4 class="page-title">Bed Requests</h4>
+                <ul class="breadcrumbs">
+                    <li class="nav-home">
+                        <a href="#">
+                            <i class="flaticon-home"></i>
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">COVID19</a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Request Beds</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row">
+            <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Form Elements</div>
+                        </div>
+                        <div class="card-body">
+                        <div class="alert alert">
+                        {{message}}
+                        </div>
+                            <form action="/covid19/contact" method="post">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <input type="submit" value="Submit">
+                            </form>
+
+
+                            {% comment %} <form method="post" novalidate>
+                               
+                               {% csrf_token %}
+
+                                {{ form.non_field_errors }}
+
+                                <table class="display table table-striped table-hover">
+                                    {{ form }}
+                                </table>
+                                <button class="btn btn-success" type="submit">Submit</button>
+                                <button class="btn btn-danger" type="cancel">Cancel</button>
+                            </form> {% endcomment %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+
+
+{% endblock javascripts %}

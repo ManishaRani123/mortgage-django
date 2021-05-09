@@ -1,0 +1,167 @@
+
+		<div class="main-header">
+
+			<!-- Logo Header -->
+			<div class="logo-header" data-background-color="blue">
+				
+				<a href="../covid19" class="logo">
+					<img src="/static/assets/img/logo.png" height="35" alt="{{appName}}" title="{{appName}}" class="navbar-brand">
+				</a>
+				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon">
+						<i class="icon-menu"></i>
+					</span>
+				</button>
+				<button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
+				<div class="nav-toggle">
+					<button class="btn btn-toggle toggle-sidebar">
+						<i class="icon-menu"></i>
+					</button>
+				</div>
+			</div>
+			<!-- End Logo Header -->
+
+			<!-- Navbar Header -->
+			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+				
+				
+				<div class="container-fluid">
+					
+					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+						<li class="nav-item hidden-caret">
+							<a class="nav-link btn btn-primary" href="../covid19/worldwide">
+								Worldwide Trend
+							</a>
+						</li>
+						<li class="nav-item hidden-caret">
+							<a class="nav-link btn btn-primary" href="../covid19/vaccinations">
+								Vaccinations
+							</a>
+						</li>
+						<li class="nav-item hidden-caret">
+							<a class="nav-link btn btn-primary" href="../covid19/tests">
+								COVID-19 Tests
+							</a>
+						</li>
+						<li class="nav-item hidden-caret">
+							<a class="nav-link btn btn-primary" href="../covid19/donateplasma">
+								Donate Plasma
+							</a>
+						</li>
+						<li class="nav-item hidden-caret">
+							<a class="nav-link btn btn-primary" href="../covid19/bedrequest">
+								Request Bed
+							</a>
+						</li>
+						<li class="nav-item hidden-caret">
+							<a class="nav-link btn btn-primary" href="../covid19/symptoms">
+								Symptoms
+							</a>
+						</li>
+
+						<li class="nav-item dropdown hidden-caret">
+							<a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fa fa-envelope"></i>
+								<span class="notification">{{RecentbedRequests.count}}</span>
+							</a>
+							<ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
+								<li>
+									<div class="dropdown-title d-flex justify-content-between align-items-center">
+										{{RecentbedRequests.count}} New Bed Requests									
+										<a href="../covid19/bedrequest" class="small">See All Requests</a>
+									</div>
+								</li>
+								<li>
+									<div class="message-notif-scroll scrollbar-outer">
+										<div class="notif-center">
+											{% for recentBedReq in RecentbedRequests %}
+												<a href="../covid19/bedrequest">
+													<div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i> </div>
+													<div class="notif-content">
+														<span class="subject">{{recentBedReq.full_name}}</span>
+														<span class="block">
+															<i class="fa fa-map-marker"></i> {{recentBedReq.streetAddress}} {{recentBedReq.city}} {{recentBedReq.state}}
+														</span>
+														<span class="time"><b>Requested On</b> {{recentBedReq.requestOn}}</span> 
+													</div>
+												</a>
+											{% endfor %}
+										
+										</div>
+									</div>
+								</li>
+								<li>
+									<a class="see-all" href="../covid19/bedrequest">See All Requests<i class="fa fa-angle-right"></i> </a>
+								</li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown hidden-caret">
+							<a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fa fa-bell"></i>
+								<span class="notification">{{RecentPlasmaRequests.count}}</span>
+							</a>
+							<ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
+								<li>
+									<div class="dropdown-title">{{RecentPlasmaRequests.count}} New Request for Plasma Donation</div>
+								</li>
+								<li>
+									<div class="notif-scroll scrollbar-outer">
+										<div class="notif-center">
+											
+											{% for recentPlasmaReq in RecentPlasmaRequests %}
+												<a href="../covid19/donateplasma">
+													<div class="notif-icon notif-success"> <i class="fa fa-comment"></i> </div>
+													<div class="notif-content">
+														<span class="subject">{{recentPlasmaReq.full_name}}</span>
+														<span class="block">
+															<i class="fa fa-map-marker"></i> {{recentPlasmaReq.streetAddress}} {{recentBedReq.city}} {{recentBedReq.state}}
+														</span>
+														<span class="time"><b>Requested On</b> {{recentPlasmaReq.requestOn}}</span> 
+													</div>
+												</a>
+											{% endfor %}
+
+										</div>
+									</div>
+								</li>
+								<li>
+									<a class="see-all" href="../covid19/donateplasma">See all Request for Plasma Donation<i class="fa fa-angle-right"></i> </a>
+								</li>
+							</ul>
+						</li>
+						
+						{% if request.user.is_authenticated %}
+						<li class="nav-item dropdown hidden-caret">
+							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
+								<div class="avatar-sm">
+									<img src="/static/assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+								</div>
+							</a>
+							<ul class="dropdown-menu dropdown-user animated fadeIn">
+								<div class="dropdown-user-scroll scrollbar-outer">
+									<li>
+										<div class="user-box">
+											<div class="avatar-lg"><img src="/static/assets/img/profile.jpg" alt="image profile" class="avatar-img rounded"></div>
+											<div class="u-text">
+												<h4>
+													{{ request.user.username }}
+												</h4>
+												<p class="text-muted">
+													{{ request.user.email }}
+												</p>
+												<a href="{% url 'logout' %}" class="btn btn-xs btn-secondary btn-sm">Log Out</a>
+											</div>
+										</div>
+									</li>
+									
+								</div>
+							</ul>
+						</li>
+						{% endif %}
+					</ul>
+				</div>
+			
+			</nav>
+			<!-- End Navbar -->
+        </div>
+        
