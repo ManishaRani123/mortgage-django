@@ -1,8 +1,11 @@
+from core.settings import CORE_DIR, STATICFILES_DIRS
 from typing import Reversible
 import datetime
-from django.http.response import HttpResponseRedirect
+import os
+from django.http.response import HttpResponseRedirect, JsonResponse
 from covid19.models import DonatePlasma, RequestBed
 from django.shortcuts import redirect, render
+import json
 
 # Contact form
 from .forms import ContactForm, DonatePlasmaForm
@@ -210,7 +213,23 @@ def tests(request):
 def symptoms(request):
     return render(request,'covid19/symptoms.html')
 
-def nearby(request):
+def hospitals(request):
     return render(request,'covid19/nearby.html')
 
 
+def nearby(request):
+    csv_path = os.path.join(CORE_DIR, 'core/static/data/private-hospitals-list.csv')
+    header_list = ["FacilityName", "ApplicantProprietor", "Fac Add", "Fac Add SUB", "Pcode", "Telephone"]
+    hospitals = pd.read_csv(csv_path)
+    selectedHospitals = hospitals.to_html()
+
+
+    json_records = hospitals.to_json(orient ='records')
+    data = []
+    data = json.loads(json_records)
+   
+
+    
+
+    # message = "CSV Path "
+    return render(request, 'covid19/nearby.html', {'Hospitals': selectedHospitals,'d': data})

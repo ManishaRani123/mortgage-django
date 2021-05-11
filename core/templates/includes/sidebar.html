@@ -42,8 +42,15 @@
 						</li>
 						<li class="nav-item {% if '/covid19/donateplasma' in segment %} active {% endif %}">
 							<a href="/covid19/donateplasma">
-								<i class="fas fa-link"></i>
+								<i class="fas fa-heartbeat"></i>
 								<p>Plasma Donate Request</p>
+								<span class="badge badge-success">{{RecentPlasmaRequests.count}}</span>
+							</a>
+						</li>
+						<li class="nav-item {% if '/covid19/nearby' in segment %} active {% endif %}">
+							<a href="/covid19/nearby">
+								<i class="fas fa-hospital"></i>
+								<p>Nearby Hospitals</p>
 								<span class="badge badge-success">{{RecentPlasmaRequests.count}}</span>
 							</a>
 						</li>

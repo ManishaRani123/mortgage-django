@@ -72,12 +72,24 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME'  : 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME'  : 'db.sqlite3',
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'covid19-response',
+            'USER': 'saadmin@covid-response',
+            'PASSWORD': 'Nepal@12345$$',
+            'HOST': 'covid-response.mysql.database.azure.com',
+            'PORT': '3306',
+            'OPTIONS': {'ssl': True},
+        }
     }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

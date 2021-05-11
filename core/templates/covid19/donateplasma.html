@@ -160,7 +160,7 @@
                                             <th>Name</th>
                                             <th>Address</th>
                                             <th>State</th>
-                                            <th>Status</th>
+                                            <th>Request</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -171,7 +171,7 @@
                                             <th>Name</th>
                                             <th>Address</th>
                                             <th>State</th>
-                                            <th>Status</th>
+                                            <th>Request</th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
@@ -194,7 +194,7 @@
                                         <td>{{bedReq.full_name}}</td>
                                         <td>{{bedReq.streetAddress}} {{bedReq.city}} </td>
                                         <td>{{bedReq.state}} Australia </td>
-                                        <td>{{bedReq.action_status}}</td>
+                                        <td>{{bedReq.requestOn|timesince}}</td>
                                         <td>
                                             <div class="form-button-action">
                                                 <button type="button" data-toggle="tooltip" title="Offer Help" class="btn btn-link btn-success btn-lg" data-original-title="Offer Help">

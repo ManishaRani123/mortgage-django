@@ -44,6 +44,11 @@
 							</a>
 						</li>
 						<li class="nav-item hidden-caret">
+							<a class="nav-link btn btn-primary" href="../covid19/nearby">
+								Nearby Hospitals
+							</a>
+						</li>
+						<li class="nav-item hidden-caret">
 							<a class="nav-link btn btn-primary" href="../covid19/donateplasma">
 								Donate Plasma
 							</a>
@@ -82,7 +87,7 @@
 														<span class="block">
 															<i class="fa fa-map-marker"></i> {{recentBedReq.streetAddress}} {{recentBedReq.city}} {{recentBedReq.state}}
 														</span>
-														<span class="time"><b>Requested On</b> {{recentBedReq.requestOn}}</span> 
+														<span class="time"><b>Requested </b> {{recentBedReq.requestOn|timesince}} ago</span> 
 													</div>
 												</a>
 											{% endfor %}
@@ -116,7 +121,7 @@
 														<span class="block">
 															<i class="fa fa-map-marker"></i> {{recentPlasmaReq.streetAddress}} {{recentBedReq.city}} {{recentBedReq.state}}
 														</span>
-														<span class="time"><b>Requested On</b> {{recentPlasmaReq.requestOn}}</span> 
+														<span class="time"><b>Requested </b> {{ recentPlasmaReq.requestOn|timesince }} ago</span> 
 													</div>
 												</a>
 											{% endfor %}
