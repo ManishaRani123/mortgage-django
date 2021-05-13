@@ -33,13 +33,70 @@
             </div>
             <div class="row">
                 
+                <div class="col-md-12">
+					<div class="card">
+						<div class="card-header"> 
+							<h4 class="card-title">Request received during COVID19</h4>
+						</div>
+						<div class="card-body">
+							<ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
+								<li class="nav-item submenu">
+									<a class="nav-link active show" id="pills-bedRequest-tab" data-toggle="pill" href="#pills-bedRequest" role="tab" aria-controls="pills-bedRequest" aria-selected="true">Bed Requests</a>
+								</li>
+								<li class="nav-item submenu">
+									<a class="nav-link" id="pills-plasmaRequest-tab" data-toggle="pill" href="#pills-plasmaRequest" role="tab" aria-controls="pills-plasmaRequest" aria-selected="false">Plasma Request/Donate</a>
+								</li>
+								<li class="nav-item submenu">
+									<a class="nav-link" id="pills-foodRequest-tab" data-toggle="pill" href="#pills-foodRequest" role="tab" aria-controls="pills-foodRequest" aria-selected="false">Food Request</a>
+								</li>
+                                <li class="nav-item submenu">
+									<a class="nav-link" id="pills-oxygenRequest-tab" data-toggle="pill" href="#pills-oxygenRequest" role="tab" aria-controls="pills-oxygenRequest" aria-selected="false">Oxygen Request</a>
+								</li>
+                                <li class="nav-item submenu">
+									<a class="nav-link" id="pills-cremationRequest-tab" data-toggle="pill" href="#pills-cremationRequest" role="tab" aria-controls="pills-cremationRequest" aria-selected="false">Cremation</a>
+								</li>
+                                <li class="nav-item submenu">
+									<a class="nav-link" id="pills-quarantineRequest-tab" data-toggle="pill" href="#pills-quarantineRequest" role="tab" aria-controls="pills-quarantineRequest" aria-selected="false">Quarantine Space Request</a>
+								</li>
+                                <li class="nav-item submenu">
+									<a class="nav-link" id="pills-otherRequest-tab" data-toggle="pill" href="#pills-otherRequest" role="tab" aria-controls="pills-otherRequest" aria-selected="false">Others</a>
+								</li>
+							</ul>
+							<div class="tab-content mt-2 mb-3" id="pills-tabContent">
+								<div class="tab-pane fade active show" id="pills-bedRequest" role="tabpanel" aria-labelledby="pills-bedRequest-tab">
+                                    {% include "covid19/partials/recentBedRequests.html" %}
+								</div>
+								<div class="tab-pane fade" id="pills-plasmaRequest" role="tabpanel" aria-labelledby="pills-plasmaRequest-tab">
+									{% include "covid19/partials/RecentPlasmaRequests.html" %}
+								</div>
+								<div class="tab-pane fade" id="pills-foodRequest" role="tabpanel" aria-labelledby="pills-foodRequest-tab">
+									{% include "covid19/partials/otherRequestFood.html" %}
+								</div>
+                                <div class="tab-pane fade" id="pills-oxygenRequest" role="tabpanel" aria-labelledby="pills-oxygenRequest-tab">
+									{% include "covid19/partials/otherRequestOxygen.html" %}
+								</div>
+                                <div class="tab-pane fade" id="pills-cremationRequest" role="tabpanel" aria-labelledby="pills-cremationRequest-tab">
+									{% include "covid19/partials/otherRequestCremation.html" %}
+								</div>
+                                <div class="tab-pane fade" id="pills-quarantineRequest" role="tabpanel" aria-labelledby="pills-quarantineRequest-tab">
+									{% include "covid19/partials/otherQuarantineRequest.html" %}
+								</div>
+                                <div class="tab-pane fade" id="pills-otherRequest" role="tabpanel" aria-labelledby="pills-otherRequest-tab">
+									{% include "covid19/partials/otherRequestOther.html" %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
 
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex align-items-center">
                                 <h4 class="card-title">Live Bed Requests ({{bedRequests.count}})</h4>
-                                <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
+                                <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#requestBedModal">
                                     <i class="fa fa-plus"></i>
                                     Request Bed
                                 </button>
@@ -47,145 +104,14 @@
                         </div>
                         <div class="card-body">
                             <!-- Modal -->
-                            <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header no-bd">
-                                            <h5 class="modal-title">
-                                                <span class="fw-mediumbold">
-                                                Request Bed</span>                                                
-                                            </h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p class="small">Please provide us the real information. Upon request, We will contact you back soon. </p>
+                            {% include "covid19/partials/_newRequestBed.html" %}
 
-                                            {{message}}
-                                            <form action="/covid19/bedrequest" method="post">
-                                                 {% csrf_token %}
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group form-group-default">
-                                                            <label>Name</label>
-                                                            <input id="full_name" name="full_name" type="text" class="form-control" placeholder="Full Name">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 pr-0">
-                                                        <div class="form-group form-group-default">
-                                                            <label>Age</label>
-                                                            <input id="age" name="age" type="number" min="1" max="120" class="form-control" placeholder="Eg. 25">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group form-group-default">
-                                                            <label>Gender</label>
-                                                            <select name="gender" id="gender" class="form-control">
-                                                                <option value="">Select Gender</option>
-                                                                <option value="M">Male</option>
-                                                                <option value="F">Female</option>
-                                                                <option value="O">Other</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
+                            {% include "covid19/partials/_newRequestPlasma.html" %}
 
-                                                    <div class="col-md-6 pr-0">
-                                                        <div class="form-group form-group-default">
-                                                            <label>Contact No</label>
-                                                            <input id="contactNo" name="contactNo" type="text" class="form-control" placeholder="Full Name">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 pr-0">
-                                                        <div class="form-group form-group-default">
-                                                            <label>Street Address</label>
-                                                            <input id="streetAddress" name="streetAddress" type="text" class="form-control" placeholder="Eg. 161 Sussex St">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 pr-0">
-                                                        <div class="form-group form-group-default">
-                                                            <label>City</label>
-                                                            <input id="city" name="city" type="text" class="form-control" placeholder="Eg. Sydney">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group form-group-default">
-                                                            <label>State</label>
-                                                            <select name="state" id="state" class="form-control">
-                                                                <option value="">Select State</option>
-                                                                <option value="AU-NSW">New South Wales</option>
-                                                                <option value="AU-QLD">Queensland</option>
-                                                                <option value="AU-SA">South Australia</option>
-                                                                <option value="AU-TAS">Tasmania</option>
-                                                                <option value="AU-VIC">Victoria</option>
-                                                                <option value="AU-WA">Western Australia</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-3 pr-0">
-                                                        <div class="form-group form-group-default">
-                                                            <label>No of Beds</label>
-                                                            <select name="bedsQty" id="bedsQty" class="form-control">
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5">5</option>
-                                                                <option value="6">6</option>
-                                                                <option value="7">7</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-4 pr-0">
-                                                        <div class="form-group form-group-default">
-                                                            <label>Urgency</label>
-                                                            <select name="urgency" id="urgency" class="form-control">
-                                                                <option value="Moderate">Moderate</option>
-                                                                <option value="Not Urgent">Not Urgent</option>
-                                                                <option value="Urgent">Urgent</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-4 pr-0">
-                                                        <div class="form-group form-group-default">
-                                                            <label>Bed Type</label>
-                                                            <select name="bedType" id="bedType" class="form-control">
-                                                                <option value="ICU">ICU</option>
-                                                                <option value="Normal">Normal</option>
-                                                                <option value="Isolation">Isolation</option>
-                                                                <option value="Ventilator">Ventilator</option>
-                                                                <option value="Unspecified">Unspecified</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-12 pr-0">
-                                                        <div class="form-group form-group-default">
-                                                            <label>Additional Info</label>
-                                                            <textarea id="additionalInfo" name="additionalInfo" rows="4" cols="50" class="form-control">
-
-                                                            </textarea>
-                                                        </div>
-                                                    </div>
-
-
-                                                </div>
-
-                                                <div class="no-bd">
-                                                    <button type="submit" id="addRowButton"  class="btn btn-primary">Request</button>
-                                                    <button type="cancel" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
+                            {% include "covid19/partials/_newRequestOthers.html" %}
 
                             <div class="table-responsive">
+                                {{errorMessage}}
                                 <table id="multi-filter-select" class="display table table-striped table-hover" >
                                     <thead>
                                         <tr>
@@ -271,39 +197,9 @@
     <script src="/static/assets/js/setting-demo2.js"></script>
     <script >
         $(document).ready(function() {
-            $('#basic-datatables').DataTable({
+            $('.basic-datatables').DataTable({
             });
 
-            $('#multi-filter-select').DataTable( {
-                "pageLength": 20,
-                initComplete: function () {
-                    this.api().columns().every( function () {
-                        var column = this;
-                        var select = $('<select class="form-control"><option value=""></option></select>')
-                        .appendTo( $(column.footer()).empty() )
-                        .on( 'change', function () {
-                            var val = $.fn.dataTable.util.escapeRegex(
-                                $(this).val()
-                                );
-
-                            column
-                            .search( val ? '^'+val+'$' : '', true, false )
-                            .draw();
-                        } );
-
-                        column.data().unique().sort().each( function ( d, j ) {
-                            select.append( '<option value="'+d+'">'+d+'</option>' )
-                        } );
-                    } );
-                }
-            });
-
-            // Add Row
-            $('#add-row').DataTable({
-                "pageLength": 20,
-            });
-
-            var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
 
             $('#addRowButton').click(function() {
                 $('#add-row').dataTable().fnAddData([

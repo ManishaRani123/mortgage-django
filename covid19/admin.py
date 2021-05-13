@@ -1,4 +1,4 @@
-from covid19.models import DonatePlasma, RequestBed
+from covid19.models import DonatePlasma, OtherRequest, RequestBed
 from django.contrib import admin
 
 # Register your models here.
@@ -12,3 +12,4 @@ class AuthorAdmin(admin.ModelAdmin):
     pass
 admin.site.register(RequestBed, AuthorAdmin)
 admin.site.register(DonatePlasma, AuthorAdmin)
+admin.site.register(OtherRequest, AuthorAdmin)

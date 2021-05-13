@@ -4,6 +4,7 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from collections import namedtuple
+from os import name
 from django.urls import path
 from . import views
 
@@ -11,6 +12,7 @@ urlpatterns = [
     path('', views.index, name="index"),
     path('bedrequest', views.bedRequest, name="bedRequest"),
     path('donateplasma', views.donatePlasma, name="donatePlasma"),
+    path('otherRequest', views.otherRequest, name="otherRequest"),
     path('saveBedRequest', views.saveBedRequest, name="saveBedRequest"),
     path('contact', views.contactform, name="contactform"),
     path('worldwide', views.worldwide, name="worldwide"),

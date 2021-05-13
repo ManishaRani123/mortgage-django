@@ -1,0 +1,68 @@
+<div class="d-flex align-items-center">
+   <h4 class="card-title">Live Bed Requests ({{RecentbedRequests.count}})</h4>
+   <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#requestBedModal">
+   <i class="fa fa-plus"></i>
+   Request Bed
+   </button>
+</div>
+<hr>
+<div class="table-responsive">
+   <table class="basic-datatables display table table-striped table-hover" >
+      <thead>
+         <tr>
+            <th>Urgency</th>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>State</th>
+            <th>No. Required</th>
+            <th>Request Received</th>
+            <th></th>
+         </tr>
+      </thead>
+      <tfoot>
+         <tr>
+            <th>Urgency</th>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>State</th>
+            <th>No. Required</th>
+            <th>Request Received</th>
+            <th></th>
+         </tr>
+      </tfoot>
+      <tbody>
+         {% for bedReq in RecentbedRequests %}
+         <tr>
+            <td>
+               {% if bedReq.urgency == 'Urgent' %}
+               <span class="btn btn-danger btn-xs">{{bedReq.urgency}}</span>
+               {% elif bedReq.urgency == 'Not Urgent' %}
+               <span class="btn btn-primary btn-xs">{{bedReq.urgency}}</span>
+               {% else %}
+               <span class="btn btn-default btn-xs">{{bedReq.urgency}}</span>
+               {% endif %}
+            </td>
+            <td>{{bedReq.bedType}}</td>
+            <td>{{bedReq.full_name}}</td>
+            <td>{{bedReq.streetAddress}} {{bedReq.city}} </td>
+            <td>{{bedReq.state}} Australia </td>
+            <td>{{bedReq.bedsQty}}</td>
+            <td>{{bedReq.requestOn|timesince}}</td>
+            
+            {% if request.user.is_authenticated %}
+            <td>
+               <div class="form-button-action">
+                  <a href="/admin/covid19/requestbed/{{bedReq.id}}/change/" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Offer Help" class="btn btn-link btn-success btn-lg" data-original-title="Offer Help">
+                  <i class="fa fa-edit"></i> Process Request
+                  </a>
+               </div>
+            </td>
+            {% endif %}
+           
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+</div>

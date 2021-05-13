@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Notification Email</title>
+  </head>
+  <body>
+	Hello Admin,
+	<p>You have a new request. Please check details</p>
+	<p>
+		<b>Name: </b> {{name}} <br>
+		<b>Gender: </b> {{gender}} <br>
+		<b>Phone: </b> {{phone}} <br>
+		<b>Email: </b> {{email}} <br>
+		<b>Address: </b> {{address}} <br>
+		{% comment %} <b>Requested On: </b> {% now "D, jS F Y H:i A" %} {% endcomment %}
+		<b>Additional Info: </b> {{additionalMsg|safe}} <br>
+	</p>
+
+	<p>This is a an automated Email send from <a href="https://covidrapidresponse.azurewebsites.net/"><b>COVID19 Responses</b></a></p>
+
+
+</body>
+</html>
+

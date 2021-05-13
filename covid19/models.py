@@ -3,13 +3,10 @@ from django.db import models
 # Create your models here.
 class RequestBed(models.Model):
 
-    # Male = 'M'
-    # Female = 'F'
-    # Other = '0'
     Gender_Options = [
-        ('M', 'Male'),
-        ('F', 'Female'),
-        ('O', 'Other')
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+        ('Other', 'Other')
     ]
 
     BedType_Options = [
@@ -50,13 +47,14 @@ class RequestBed(models.Model):
     id = models.AutoField(primary_key=True)
     full_name = models.CharField(max_length=200, verbose_name='Full Name')
     age = models.IntegerField()
-    gender = models.CharField(choices=Gender_Options, default='Other', max_length=1, verbose_name='Gender')
+    gender = models.CharField(choices=Gender_Options, default='Other', max_length=10, verbose_name='Gender')
+    email = models.CharField(max_length=128, verbose_name='Email', null=True)
     contactNo = models.CharField(max_length=25, verbose_name='Contact No')
     streetAddress = models.CharField(max_length=200, verbose_name='Street Address')
     city = models.CharField(max_length=200, verbose_name='City')
     state = models.CharField( choices=Aus_States, default='', max_length=150, verbose_name='State')
     bedsQty = models.IntegerField(verbose_name='No of Beds')
-    urgency = models.CharField(choices=Urgency_Options,default='Not Urgent', max_length=20, verbose_name='Urgency') 
+    urgency = models.CharField(choices=Urgency_Options,default='Not Urgent', max_length=40, verbose_name='Urgency') 
     bedType = models.CharField(choices=BedType_Options,default='Normal', max_length=30, verbose_name='Bed Type')
     additionalInfo = models.TextField(verbose_name='Additional Information', blank=True, null=True)
     o_name = models.CharField(max_length=200, blank=True, null=True)
@@ -71,9 +69,9 @@ class RequestBed(models.Model):
 
 class DonatePlasma(models.Model):
     Gender = [
-        ('M', 'Male'),
-        ('F', 'Female'),
-        ('O', 'Other')
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+        ('Other', 'Other')
     ]
 
     Donate_Options = [
@@ -108,12 +106,67 @@ class DonatePlasma(models.Model):
     full_name = models.CharField(max_length=200, verbose_name='Full Name')
     age = models.IntegerField()
     gender = models.CharField(choices=Gender, default='Other', max_length=10, verbose_name='Gender')
+    email = models.CharField(max_length=128, verbose_name='Email', null=True)
     contactNo = models.CharField(max_length=20, verbose_name='Contact No')
     streetAddress = models.CharField(max_length=200, verbose_name='Street Address')
     city = models.CharField(max_length=300, verbose_name='City')
-    state = models.CharField( choices=States, default='', max_length=30, verbose_name='State')
+    state = models.CharField( choices=States, default='', max_length=50, verbose_name='State')
     donor_option = models.CharField(choices=Donate_Options,default='Receive', max_length=100, verbose_name='Plasma Donate') 
     
+    additionalInfo = models.TextField(verbose_name='Additional Information', blank=True, null=True)
+    requestOn = models.DateTimeField(auto_now_add=True, blank=True, verbose_name="Request Date")
+    seenStatus = models.BooleanField(default=False, verbose_name='Seen Status')
+    action_status = models.CharField(choices=Action_Status,default='Receive', blank=True, max_length=200, verbose_name='Plasma Donate')
+
+
+class OtherRequest(models.Model):
+    Gender = [
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+        ('Other', 'Other')
+    ]
+    Urgency_Options = [
+        ('Urgent', 'Urgent'),
+        ('Moderate', 'Moderate'),
+        ('Not Urgent', 'Not Urgent')
+    ]
+    RequestType = [
+        ('Oxygen', 'Oxygen'),
+        ('Food', 'Food'),
+        ('Cremation', 'Cremation'),
+        ('Quarantine Space', 'Quarantine Space'),
+        ('Other','Other')
+    ]
+
+    States = [
+        ('AU-NSW', 'New South Wales'),
+        ('AU-QLD', 'Queensland'),
+        ('AU-SA', 'South Australia'),
+        ('AU-TAS', 'Tasmania'),
+        ('AU-VIC', 'Victoria'),
+        ('AU-WA', 'Western Australia')
+    ]
+
+    Action_Status = [
+        ('Request Received', 'Request Received'),
+        ('Waiting', 'Waiting'),
+        ('Under Approval', 'Under Approval'),
+        ('Cancelled', 'Cancelled'),
+        ('Approved', 'Approved'),
+        ('Unspecified', 'Unspecified')
+    ]
+
+    id = models.AutoField(primary_key=True)
+    full_name = models.CharField(max_length=200, verbose_name='Full Name')
+    age = models.IntegerField()
+    gender = models.CharField(choices=Gender, default='Other', max_length=10, verbose_name='Gender')
+    email = models.CharField(max_length=128, verbose_name='Email', null=True)
+    contactNo = models.CharField(max_length=30, verbose_name='Contact No')
+    streetAddress = models.CharField(max_length=200, verbose_name='Street Address')
+    city = models.CharField(max_length=300, verbose_name='City')
+    state = models.CharField( choices=States, default='', max_length=50, verbose_name='State')
+    requestType = models.CharField(choices=RequestType,default='Oxygen', max_length=100, verbose_name='Plasma Donate') 
+    urgency = models.CharField(choices=Urgency_Options,default='Not Urgent', max_length=40, verbose_name='Urgency') 
     additionalInfo = models.TextField(verbose_name='Additional Information', blank=True, null=True)
 
     requestOn = models.DateTimeField(auto_now_add=True, blank=True, verbose_name="Request Date")

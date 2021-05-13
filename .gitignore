@@ -1,0 +1,4 @@
+staticfiles/*
+venv
+venv/*
+.env0

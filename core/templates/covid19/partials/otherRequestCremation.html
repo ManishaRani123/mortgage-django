@@ -1,0 +1,57 @@
+<div class="d-flex align-items-center">
+   <h4 class="card-title">Cremation Requests ({{otherRequestCremation.count}})</h4>
+   <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#requestOthersModal">
+   <i class="fa fa-plus"></i>
+   Request Cremation
+   </button>
+</div>
+<hr>
+<div class="table-responsive">
+   <table class="basic-datatables display table table-striped table-hover" >
+      <thead>
+         <tr>
+            <th>Urgency</th>
+            <th>Request for</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>State</th>
+            <th>No. Required</th>
+            <th>Request Received</th>
+            {% if request.user.is_authenticated %} <th></th> {% endif %}
+         </tr>
+      </thead>
+      
+      <tbody>
+         {% for cremationReq in otherRequestCremation %}
+         <tr>
+            <td>
+               {% if cremationReq.urgency == 'Urgent' %}
+               <span class="btn btn-danger btn-xs">{{cremationReq.urgency}}</span>
+               {% elif cremationReq.urgency == 'Not Urgent' %}
+               <span class="btn btn-primary btn-xs">{{cremationReq.urgency}}</span>
+               {% else %}
+               <span class="btn btn-default btn-xs">{{cremationReq.urgency}}</span>
+               {% endif %}
+            </td>
+            <td>{{cremationReq.requestType}}</td>
+            <td>{{cremationReq.full_name}}</td>
+            <td>{{cremationReq.streetAddress}} {{bedReq.city}} </td>
+            <td>{{cremationReq.state}} Australia </td>
+            <td>{{cremationReq.bedsQty}}</td>
+            <td>{{cremationReq.requestOn|timesince}}</td>
+            
+            {% if request.user.is_authenticated %}
+            <td>
+               <div class="form-button-action">
+                  <a href="/admin/covid19/otherrequest/{{cremationReq.id}}/change/" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Process Request" class="btn btn-link btn-success btn-lg" data-original-title="Offer Help">
+                  <i class="fa fa-edit"></i> Process Request
+                  </a>
+               </div>
+               </td>
+            {% endif %}
+            
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+</div>

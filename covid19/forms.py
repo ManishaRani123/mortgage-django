@@ -1,7 +1,7 @@
-from covid19.models import DonatePlasma, RequestBed
+from covid19.models import DonatePlasma, OtherRequest, RequestBed
 from django import forms
 
-class ContactForm(forms.ModelForm):
+class RequestBedForm(forms.ModelForm):
     class Meta:
         model= RequestBed
         exclude = ('o_name','o_contactNo','o_address','o_relation','requestOn','seenStatus','action_status')
@@ -15,10 +15,15 @@ class DonatePlasmaForm(forms.ModelForm):
         # fields = "__all__"
         # fields= ["age", "gender", "contactNo", "streetAddress", "city"]
 
+class OtherRequestForm(forms.ModelForm):
+    class Meta:
+        model= OtherRequest
+        exclude = ('requestOn','seenStatus','action_status')
+
 def clean(self):
-    cleaned_data = super(ContactForm, self).clean()
+    cleaned_data = super(RequestBed, self).clean()
     name = cleaned_data.get('name')
     email = cleaned_data.get('email')
-    message = cleaned_data.get('message')
-    if not name and not email and not message:
+    age = cleaned_data.get('age')
+    if not name and not email and not age:
         raise forms.ValidationError('You have to write something!')

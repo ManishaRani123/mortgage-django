@@ -1,14 +1,21 @@
-from core.settings import CORE_DIR, STATICFILES_DIRS
+from core.settings import ADMIN_EMAIL, CORE_DIR, DEFAULT_FROM_EMAIL, EMAIL_HOST_USER, EMAIL_USE_TLS, STATICFILES_DIRS
 from typing import Reversible
 import datetime
 import os
 from django.http.response import HttpResponseRedirect, JsonResponse
-from covid19.models import DonatePlasma, RequestBed
+from covid19.models import DonatePlasma, OtherRequest, RequestBed
 from django.shortcuts import redirect, render
 import json
+from django.core.mail import send_mail
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from django.core.mail import EmailMessage
+
+
+from django.template.loader import get_template, render_to_string
 
 # Contact form
-from .forms import ContactForm, DonatePlasmaForm
+from .forms import DonatePlasmaForm, OtherRequestForm, RequestBedForm
 
 import pandas as pd
 import numpy as np
@@ -19,6 +26,42 @@ deathGLobal=pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-
 recoverGlobal=pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv')
 
 
+def sendNotifyEmail(name, email, requestType):
+    subject = 'Your request has been received : COVID19 Response'
+    ctx = {
+        'name': name,
+        'requestType': requestType
+    }
+    html_content = render_to_string('covid19/notifyEmail.html', ctx)
+    
+    # message = f'Hi Admin, {name} from {address} has requested some help. Please respond back'
+    email_from = DEFAULT_FROM_EMAIL
+    recipient_list = [email]
+    send_mail( subject, html_content, email_from, recipient_list, html_message=html_content, fail_silently=False )
+
+def emailtoAdmin(name, age,gender, email, phone, address, requestFor, additionalMsg):
+    subject = 'New Request received : COVID19 Response'
+
+    ctx = {
+        'name': name,
+        'age': age,
+        'gender': gender,
+        'email': email,
+        'phone': phone,
+        'address': address,
+        'requestFor': requestFor,
+        'additionalMsg': additionalMsg
+    }
+
+    html_content = render_to_string('covid19/emailToAdmin.html', ctx)
+    
+    # message = f'Hi Admin, {name} from {address} has requested some help. Please respond back'
+    email_from = DEFAULT_FROM_EMAIL
+    html_message = "<b>Name: </b>" + str(name) + "\n<b>Age: </b>" +  str(age) + "\n<b>Phone: </b>"+  str(phone) + "\n<b>Email: </b>" +  str(email) + "\n<b>Address: </b>" +  str(address) + "\n<b>Additional Info: </b>" +  str(additionalMsg)
+    recipient_list = [ADMIN_EMAIL, 'aryalnishan@outlook.com']
+    send_mail( subject, html_content, email_from, recipient_list, html_message=html_content, fail_silently=False )
+
+
 def index(request):
     # confirmedGlobal=pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',encoding='utf-8',keep_default_na=False, na_values="")
     # deathGLobal=pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv')
@@ -27,7 +70,10 @@ def index(request):
     contryNames,countsVal,logVals,overallCount,dataForMapGraph,maxVal=getBarData(confirmedGlobal,uniqueCountryNames)
     dataForheatMap,dateCat=getHeatMapData(confirmedGlobal,contryNames)
     datasetForLine,axisvalues=getLinebarGroupData(confirmedGlobal,uniqueCountryNames)
+
     context={'dateCat':dateCat,'dataForheatMap':dataForheatMap,'maxVal':maxVal,'dataForMapGraph':dataForMapGraph,'axisvalues':axisvalues,'datasetForLine':datasetForLine,'uniqueCountryNames':uniqueCountryNames,'contryNames':contryNames,'countsVal':countsVal,'logVals':logVals,'overallCount':overallCount}
+    
+
     return render(request,'covid19/worldwide.html',context)
     
 # def summaryData(confirmedGlobal, deathGLobal, recoverGlobal):
@@ -118,33 +164,56 @@ def drillDownACountry(request):
 
 def bedRequest(request):
     message = ""
+    errorMessage =  ""
     
     if request.method == 'POST':
-        form = ContactForm(request.POST)
+        form = RequestBedForm(request.POST)
         if form.is_valid():
             formData=form.save(commit=False)
 
-            formData.full_name = request.POST.get('full_name')
-            formData.age = request.POST.get('age')
-            formData.gender = request.POST.get('gender')
-            formData.contactNo = request.POST.get('contactNo')
-            formData.streetAddress = request.POST.get('streetAddress')
-            formData.city = request.POST.get('city')
-            formData.state = request.POST.get('state')
-            formData.bedsQty = request.POST.get('bedsQty')
-            formData.urgency = request.POST.get('urgency')
-            formData.bedType = request.POST.get('bedType')
-            formData.additionalInfo = request.POST.get('additionalInfo')
-            formData.requestDate = datetime.date.today()
-            
-            formData.save()
+            # formData.full_name = request.POST.get('full_name')
+            # formData.age = request.POST.get('age')
+            # formData.gender = request.POST.get('gender')
+            # formData.contactNo = request.POST.get('contactNo')
+            # formData.streetAddress = request.POST.get('streetAddress')
+            # formData.city = request.POST.get('city')
+            # formData.state = request.POST.get('state')
+            # formData.bedsQty = request.POST.get('bedsQty')
+            # formData.urgency = request.POST.get('urgency')
+            # formData.bedType = request.POST.get('bedType')
+            # formData.additionalInfo = request.POST.get('additionalInfo')
+            # formData.requestDate = datetime.date.today()
+
+            requestFor = (request.POST.get('bedsQty') + " Beds (" 
+                        + request.POST.get('bedType') +") - " + request.POST.get('urgency'))
+            try:
+                formData.save()
+
+                emailtoAdmin(name = request.POST.get('full_name'), 
+                            age = request.POST.get('age'), 
+                            gender = request.POST.get('gender'), 
+                            email = request.POST.get('email'),
+                            phone = request.POST.get('contactNo'), 
+                            address = request.POST.get('streetAddress') + " " +  request.POST.get('city') + " " + request.POST.get('state') + "Australia",
+                            requestFor = requestFor,
+                            additionalMsg = request.POST.get('additionalInfo'))
+                sendNotifyEmail(name = request.POST.get('full_name'),
+                            email = request.POST.get('email'),
+                            requestType = request.POST.get('bedsQty') +" " + request.POST.get('bedType') + " Bed, Urgency - " + request.POST.get('urgency'))
+                errorMessage = "Email send successfully"
+
+                # send_mail('This is Test Email','This is Test Email', EMAIL_HOST_USER, 'aryalnishan@outlook.com', fail_silently = False)
+            except Exception as ex:
+                errorMessage = str(ex) 
+
+
             message = "Saved Successfully"
         else:
-            form = ContactForm()
+            form = RequestBedForm()
             message = "Cannot Save. Please try again"
-    form = ContactForm()
-    allRequests = RequestBed.objects.all()
-    return render(request, 'covid19/bedrequest.html', {'bedRequests': allRequests, 'RequestForm': form, 'message': message})
+    form = RequestBedForm()
+    # allRequests = RequestBed.objects.all()
+    return render(request, 'covid19/bedrequest.html', {'RequestForm': form, 'message': message, 'errorMessage':errorMessage})
     
 
 def saveBedRequest(request):
@@ -162,21 +231,87 @@ def saveBedRequest(request):
 # Donate Plasma for COVID19
 def donatePlasma(request):
     message = ""
+    errorMessage = ""
     
     if request.method == 'POST':
         form = DonatePlasmaForm(request.POST)
         if form.is_valid():
             formData=form.save(commit=False)
+            emailBody = ("Donor Option " + request.POST.get('donor_option') +
+                        "\n Message: " + request.POST.get('additionalInfo'))
             
             formData.save()
+
+            try:
+                emailtoAdmin(name = request.POST.get('full_name'), 
+                            age = request.POST.get('age'), 
+                            gender = request.POST.get('gender'), 
+                            email = request.POST.get('email'),
+                            phone = request.POST.get('contactNo'), 
+                            address = request.POST.get('streetAddress') + " " +  request.POST.get('city') + " " + request.POST.get('state') + "Australia",
+                            additionalMsg = emailBody)
+
+                sendNotifyEmail(name = request.POST.get('full_name'),
+                            email = request.POST.get('email'),
+                            requestType = request.POST.get('donor_option') + " Plasma")
+                errorMessage = "Email send successfully"
+                # send_mail('This is Test Email','This is Test Email', EMAIL_HOST_USER, 'aryalnishan@outlook.com', fail_silently = False)
+            except Exception as ex:
+                errorMessage = str(ex)
+
+            
             message = "Saved Successfully"
         else:
-            form = ContactForm()
+            form = DonatePlasmaForm()
             message = "Cannot Save. Please try again"
     form = DonatePlasmaForm()
     allRequests = DonatePlasma.objects.all()
-    return render(request, 'covid19/donateplasma.html', {'bedRequests': allRequests, 'RequestForm': form, 'message': message})
+    return render(request, 'covid19/donateplasma.html', {'bedRequests': allRequests, 'RequestForm': form, 'message': message, 'errorMessage':errorMessage})
+
+
+# OtherRequest
+def otherRequest(request):
+    message = ""
+    errorMessage = ""
     
+    if request.method == 'POST':
+        form = OtherRequestForm(request.POST)
+        if form.is_valid():
+            formData=form.save(commit=False)
+            emailBody = ("Request for: " + request.POST.get('requestType') +
+                        "\n Message: " + request.POST.get('additionalInfo'))
+            
+            # formData.save()
+
+            try:
+                formData.save()
+                emailtoAdmin(name = request.POST.get('full_name'), 
+                            age = request.POST.get('age'), 
+                            gender = request.POST.get('gender'), 
+                            email = request.POST.get('email'),
+                            phone = request.POST.get('contactNo'), 
+                            address = request.POST.get('streetAddress') + " " +  request.POST.get('city') + " " + request.POST.get('state') + "Australia",
+                            additionalMsg = emailBody)
+
+                sendNotifyEmail(name = request.POST.get('full_name'),
+                            email = request.POST.get('email'),
+                            requestType = request.POST.get('requestType'))
+                errorMessage = "Email send successfully"
+                # send_mail('This is Test Email','This is Test Email', EMAIL_HOST_USER, 'aryalnishan@outlook.com', fail_silently = False)
+            except Exception as ex:
+                errorMessage = str(ex)
+
+            
+            message = "Saved Successfully"
+        else:
+            form = OtherRequestForm()
+            message = "Cannot Save. Please try again"
+    form = OtherRequestForm()
+    # allRequests = OtherRequest.objects.all()
+    return render(request, 'covid19/bedrequest.html', {'RequestForm': form, 'message': message, 'errorMessage':errorMessage})
+
+
+
 # COntact Form
 def contactform(request):
     message = ""

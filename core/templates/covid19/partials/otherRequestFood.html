@@ -1,0 +1,58 @@
+<div class="d-flex align-items-center">
+   <h4 class="card-title">Food Requests ({{otherRequestFood.count}})</h4>
+   <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#requestOthersModal">
+   <i class="fa fa-plus"></i>
+   Request Food
+   </button>
+</div>
+<hr>
+
+<div class="table-responsive">
+   <table class="basic-datatables display table table-striped table-hover" >
+      <thead>
+         <tr>
+            <th>Urgency</th>
+            <th>Request for</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>State</th>
+            <th>No. Required</th>
+            <th>Request Received</th>
+            {% if request.user.is_authenticated %} <th></th> {% endif %}
+         </tr>
+      </thead>
+      
+      <tbody>
+         {% for foodReq in otherRequestFood %}
+         <tr>
+            <td>
+               {% if foodReq.urgency == 'Urgent' %}
+               <span class="btn btn-danger btn-xs">{{foodReq.urgency}}</span>
+               {% elif foodReq.urgency == 'Not Urgent' %}
+               <span class="btn btn-primary btn-xs">{{foodReq.urgency}}</span>
+               {% else %}
+               <span class="btn btn-default btn-xs">{{foodReq.urgency}}</span>
+               {% endif %}
+            </td>
+            <td>{{foodReq.requestType}}</td>
+            <td>{{foodReq.full_name}}</td>
+            <td>{{foodReq.streetAddress}} {{bedReq.city}} </td>
+            <td>{{foodReq.state}} Australia </td>
+            <td>{{foodReq.bedsQty}}</td>
+            <td>{{foodReq.requestOn|timesince}}</td>
+            
+            {% if request.user.is_authenticated %}
+            <td>
+               <div class="form-button-action">
+                  <a href="/admin/covid19/otherrequest/{{foodReq.id}}/change/" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Process Request" class="btn btn-link btn-success btn-lg" data-original-title="Offer Help">
+                  <i class="fa fa-edit"></i> Process Request
+                  </a>
+               </div>
+               </td>
+            {% endif %}
+            
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+</div>

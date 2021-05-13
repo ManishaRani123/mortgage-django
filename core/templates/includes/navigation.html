@@ -66,7 +66,7 @@
 
 						<li class="nav-item dropdown hidden-caret">
 							<a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fa fa-envelope"></i>
+								<i class="fa fa-procedures"></i>
 								<span class="notification">{{RecentbedRequests.count}}</span>
 							</a>
 							<ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
@@ -81,7 +81,7 @@
 										<div class="notif-center">
 											{% for recentBedReq in RecentbedRequests %}
 												<a href="../covid19/bedrequest">
-													<div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i> </div>
+													<div class="notif-icon notif-info"> <i class="fa fa-bed"></i> </div>
 													<div class="notif-content">
 														<span class="subject">{{recentBedReq.full_name}}</span>
 														<span class="block">
@@ -115,7 +115,7 @@
 											
 											{% for recentPlasmaReq in RecentPlasmaRequests %}
 												<a href="../covid19/donateplasma">
-													<div class="notif-icon notif-success"> <i class="fa fa-comment"></i> </div>
+													<div class="notif-icon notif-info"> <i class="fa fa-heart"></i> </div>
 													<div class="notif-content">
 														<span class="subject">{{recentPlasmaReq.full_name}}</span>
 														<span class="block">
@@ -134,6 +134,43 @@
 								</li>
 							</ul>
 						</li>
+
+						<li class="nav-item dropdown hidden-caret">
+							<a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fa fa-exclamation-triangle "></i>
+								<span class="notification">{{RecentotherRequests.count}}</span>
+							</a>
+							<ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
+								<li>
+									<div class="dropdown-title">{{RecentotherRequests.count}} New Requests </div>
+								</li>
+								<li>
+									<div class="notif-scroll scrollbar-outer">
+										<div class="notif-center">
+											
+											{% for recentOtherReq in RecentotherRequests %}
+												<a href="../covid19/donateplasma">
+													<div class="notif-icon notif-info"> <i class="fa fa-exclamation"></i> </div>
+													<div class="notif-content">
+														<span class="subject">{{recentOtherReq.full_name}}</span>
+														<span class="block">
+															<i class="fa fa-map-marker"></i> {{recentOtherReq.streetAddress}} {{recentBedReq.city}} {{recentBedReq.state}}
+														</span>
+														<span class="time"><b>Requested </b> {{recentOtherReq.requestType}} {{ recentOtherReq.requestOn|timesince }} ago</span> 
+													</div>
+												</a>
+											{% endfor %}
+
+										</div>
+									</div>
+								</li>
+								<li>
+									<a class="see-all" href="../covid19/donateplasma">See all Request <i class="fa fa-angle-right"></i> </a>
+								</li>
+							</ul>
+						</li>
+
+
 						
 						{% if request.user.is_authenticated %}
 						<li class="nav-item dropdown hidden-caret">

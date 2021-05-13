@@ -1,0 +1,65 @@
+<div class="d-flex align-items-center">
+   <h4 class="card-title">Plasma Donate/Receive Requests ({{RecentPlasmaRequests.count}})</h4>
+   <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#requestPlasmaModal">
+   <i class="fa fa-plus"></i>
+   Donate/Receive Plasma
+   </button>
+</div>
+<hr>
+<div class="table-responsive">
+   <table class="basic-datatables display table table-striped table-hover" >
+      <thead>
+         <tr>
+            <th>Looking to</th>
+            <th>Contact No</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>State</th>
+            <th>Request</th>
+            {% if request.user.is_authenticated %} <th></th> {% endif %}
+         </tr>
+      </thead>
+      <tfoot>
+         <tr>
+            <th>Looking to</th>
+            <th>Contact No</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>State</th>
+            <th>Request</th>
+            {% if request.user.is_authenticated %} <th></th> {% endif %}
+         </tr>
+      </tfoot>
+      <tbody>
+         {% for plasmaReq in RecentPlasmaRequests %}
+         <tr>
+            <td>
+               {% if plasmaReq.donor_option == 'Donate' %}
+               <span class="btn btn-primary btn-sm">{{plasmaReq.donor_option}}</span>
+               {% elif plasmaReq.donor_option == 'Receive' %}
+               <span class="btn btn-success btn-sm">{{plasmaReq.donor_option}}</span>
+               {% else %}
+               <span class="btn btn-danger btn-sm">{{plasmaReq.donor_option}}</span>
+               {% endif %}
+            </td>
+            <td>{{plasmaReq.contactNo}}</td>
+            <td>{{plasmaReq.full_name}}</td>
+            <td>{{plasmaReq.streetAddress}} {{bedReq.city}} </td>
+            <td>{{plasmaReq.state}} Australia </td>
+            <td>{{plasmaReq.requestOn|timesince}}</td>
+            
+            {% if request.user.is_authenticated %}
+            <td>
+               <div class="form-button-action">
+                  <a href="/admin/covid19/donateplasma/{{plasmaReq.id}}/change/" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Process Request" class="btn btn-link btn-success btn-lg" data-original-title="Offer Help">
+                  <i class="fa fa-edit"></i> Process Request
+                  </a>
+               </div>
+            </td>
+            {% endif %}
+            
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+</div>

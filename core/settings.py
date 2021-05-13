@@ -137,3 +137,22 @@ STATICFILES_DIRS = (
 )
 #############################################################
 #############################################################
+
+
+# Mail Settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.gmail.com'
+DEFAULT_FROM_EMAIL = "aryalnishan@gmail.com"
+SERVER_EMAIL = "aryalnishan@gmail.com"
+ADMIN_EMAIL = 'wowhimalayas@gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "aryalnishan@gmail.com"
+EMAIL_HOST_PASSWORD = "hovfgubzpbowwnee"
+
+
+# #Production
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# # Development
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
