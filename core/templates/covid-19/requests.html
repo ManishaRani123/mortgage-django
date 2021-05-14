@@ -1,0 +1,129 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Bed Requests {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="content">
+        <div class="page-inner">
+            <div class="page-header">
+                <h4 class="page-title">Bed Requests</h4>
+                <ul class="breadcrumbs">
+                    <li class="nav-home">
+                        <a href="#">
+                            <i class="flaticon-home"></i>
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">COVID19</a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Request Beds</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row">
+                
+                <div class="col-md-12">
+					<div class="card">
+						<div class="card-header"> 
+							<h4 class="card-title">Request received during COVID19</h4>
+						</div>
+						<div class="card-body">
+							<ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
+								<li class="nav-item submenu">
+									<a class="nav-link active show" id="pills-bedRequest-tab" data-toggle="pill" href="#pills-bedRequest" role="tab" aria-controls="pills-bedRequest" aria-selected="true">Bed Requests</a>
+								</li>
+								<li class="nav-item submenu">
+									<a class="nav-link" id="pills-plasmaRequest-tab" data-toggle="pill" href="#pills-plasmaRequest" role="tab" aria-controls="pills-plasmaRequest" aria-selected="false">Plasma Request/Donate</a>
+								</li>
+								<li class="nav-item submenu">
+									<a class="nav-link" id="pills-foodRequest-tab" data-toggle="pill" href="#pills-foodRequest" role="tab" aria-controls="pills-foodRequest" aria-selected="false">Food Request</a>
+								</li>
+                                <li class="nav-item submenu">
+									<a class="nav-link" id="pills-oxygenRequest-tab" data-toggle="pill" href="#pills-oxygenRequest" role="tab" aria-controls="pills-oxygenRequest" aria-selected="false">Oxygen Request</a>
+								</li>
+                                <li class="nav-item submenu">
+									<a class="nav-link" id="pills-cremationRequest-tab" data-toggle="pill" href="#pills-cremationRequest" role="tab" aria-controls="pills-cremationRequest" aria-selected="false">Cremation</a>
+								</li>
+                                <li class="nav-item submenu">
+									<a class="nav-link" id="pills-quarantineRequest-tab" data-toggle="pill" href="#pills-quarantineRequest" role="tab" aria-controls="pills-quarantineRequest" aria-selected="false">Quarantine Space Request</a>
+								</li>
+                                <li class="nav-item submenu">
+									<a class="nav-link" id="pills-otherRequest-tab" data-toggle="pill" href="#pills-otherRequest" role="tab" aria-controls="pills-otherRequest" aria-selected="false">Others</a>
+								</li>
+							</ul>
+							<div class="tab-content mt-2 mb-3" id="pills-tabContent">
+								<div class="tab-pane fade active show" id="pills-bedRequest" role="tabpanel" aria-labelledby="pills-bedRequest-tab">
+                                    {% include "covid-19/partials/recentBedRequest.html" %}
+								</div>
+								<div class="tab-pane fade" id="pills-plasmaRequest" role="tabpanel" aria-labelledby="pills-plasmaRequest-tab">
+									{% include "covid-19/partials/RecentPlasmaRequests.html" %}
+								</div>
+								<div class="tab-pane fade" id="pills-foodRequest" role="tabpanel" aria-labelledby="pills-foodRequest-tab">
+									{% include "covid-19/partials/otherRequestFood.html" %}
+								</div>
+                                <div class="tab-pane fade" id="pills-oxygenRequest" role="tabpanel" aria-labelledby="pills-oxygenRequest-tab">
+									{% include "covid-19/partials/otherRequestOxygen.html" %}
+								</div>
+                                <div class="tab-pane fade" id="pills-cremationRequest" role="tabpanel" aria-labelledby="pills-cremationRequest-tab">
+									{% include "covid-19/partials/otherRequestCremation.html" %}
+								</div>
+                                <div class="tab-pane fade" id="pills-quarantineRequest" role="tabpanel" aria-labelledby="pills-quarantineRequest-tab">
+									{% include "covid-19/partials/otherQuarantineRequest.html" %}
+								</div>
+                                <div class="tab-pane fade" id="pills-otherRequest" role="tabpanel" aria-labelledby="pills-otherRequest-tab">
+									{% include "covid-19/partials/otherRequestOther.html" %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+                {% include "covid-19/partials/_newRequestBed.html" %}
+
+                {% include "covid-19/partials/_newRequestPlasma.html" %}
+
+                {% include "covid-19/partials/_newRequestOthers.html" %}
+
+               
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+    <!-- Atlantis DEMO methods, don't include it in your project! -->
+    <script src="/static/assets/js/setting-demo2.js"></script>
+    <script >
+        $(document).ready(function() {
+            $('.basic-datatables').DataTable({
+            });
+
+
+            $('#addRowButton').click(function() {
+                $('#add-row').dataTable().fnAddData([
+                    $("#addName").val(),
+                    $("#addPosition").val(),
+                    $("#addOffice").val(),
+                    action
+                    ]);
+                $('#addRowModal').modal('hide');
+
+            });
+        });
+    </script>
+
+{% endblock javascripts %}

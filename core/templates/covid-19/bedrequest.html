@@ -64,25 +64,25 @@
 							</ul>
 							<div class="tab-content mt-2 mb-3" id="pills-tabContent">
 								<div class="tab-pane fade active show" id="pills-bedRequest" role="tabpanel" aria-labelledby="pills-bedRequest-tab">
-                                    {% include "covid19/partials/recentBedRequest.html" %}
+                                    {% include "covid-19/partials/recentBedRequest.html" %}
 								</div>
 								<div class="tab-pane fade" id="pills-plasmaRequest" role="tabpanel" aria-labelledby="pills-plasmaRequest-tab">
-									{% include "covid19/partials/RecentPlasmaRequests.html" %}
+									{% include "covid-19/partials/RecentPlasmaRequests.html" %}
 								</div>
 								<div class="tab-pane fade" id="pills-foodRequest" role="tabpanel" aria-labelledby="pills-foodRequest-tab">
-									{% include "covid19/partials/otherRequestFood.html" %}
+									{% include "covid-19/partials/otherRequestFood.html" %}
 								</div>
                                 <div class="tab-pane fade" id="pills-oxygenRequest" role="tabpanel" aria-labelledby="pills-oxygenRequest-tab">
-									{% include "covid19/partials/otherRequestOxygen.html" %}
+									{% include "covid-19/partials/otherRequestOxygen.html" %}
 								</div>
                                 <div class="tab-pane fade" id="pills-cremationRequest" role="tabpanel" aria-labelledby="pills-cremationRequest-tab">
-									{% include "covid19/partials/otherRequestCremation.html" %}
+									{% include "covid-19/partials/otherRequestCremation.html" %}
 								</div>
                                 <div class="tab-pane fade" id="pills-quarantineRequest" role="tabpanel" aria-labelledby="pills-quarantineRequest-tab">
-									{% include "covid19/partials/otherQuarantineRequest.html" %}
+									{% include "covid-19/partials/otherQuarantineRequest.html" %}
 								</div>
                                 <div class="tab-pane fade" id="pills-otherRequest" role="tabpanel" aria-labelledby="pills-otherRequest-tab">
-									{% include "covid19/partials/otherRequestOther.html" %}
+									{% include "covid-19/partials/otherRequestOther.html" %}
 								</div>
 							</div>
 						</div>
@@ -104,11 +104,11 @@
                         </div>
                         <div class="card-body">
                             <!-- Modal -->
-                            {% include "covid19/partials/_newRequestBed.html" %}
+                            {% include "covid-19/partials/_newRequestBed.html" %}
 
-                            {% include "covid19/partials/_newRequestPlasma.html" %}
+                            {% include "covid-19/partials/_newRequestPlasma.html" %}
 
-                            {% include "covid19/partials/_newRequestOthers.html" %}
+                            {% include "covid-19/partials/_newRequestOthers.html" %}
 
                             <div class="table-responsive">
                                 {{errorMessage}}

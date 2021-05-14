@@ -32,7 +32,7 @@ def sendNotifyEmail(name, email, requestType):
         'name': name,
         'requestType': requestType
     }
-    html_content = render_to_string('covid19/notifyEmail.html', ctx)
+    html_content = render_to_string('covid-19/notifyEmail.html', ctx)
     
     # message = f'Hi Admin, {name} from {address} has requested some help. Please respond back'
     email_from = DEFAULT_FROM_EMAIL
@@ -53,7 +53,7 @@ def emailtoAdmin(name, age,gender, email, phone, address, requestFor, additional
         'additionalMsg': additionalMsg
     }
 
-    html_content = render_to_string('covid19/emailToAdmin.html', ctx)
+    html_content = render_to_string('covid-19/emailToAdmin.html', ctx)
     
     # message = f'Hi Admin, {name} from {address} has requested some help. Please respond back'
     email_from = DEFAULT_FROM_EMAIL
@@ -74,7 +74,7 @@ def index(request):
     context={'dateCat':dateCat,'dataForheatMap':dataForheatMap,'maxVal':maxVal,'dataForMapGraph':dataForMapGraph,'axisvalues':axisvalues,'datasetForLine':datasetForLine,'uniqueCountryNames':uniqueCountryNames,'contryNames':contryNames,'countsVal':countsVal,'logVals':logVals,'overallCount':overallCount}
     
 
-    return render(request,'covid19/worldwide.html',context)
+    return render(request,'covid-19/worldwide.html',context)
     
 # def summaryData(confirmedGlobal, deathGLobal, recoverGlobal):
 #     confirmedGlobal.columns[4:-1]
@@ -213,7 +213,7 @@ def bedRequest(request):
             message = "Cannot Save. Please try again"
     form = RequestBedForm()
     # allRequests = RequestBed.objects.all()
-    return render(request, 'covid19/bedrequest.html', {'RequestForm': form, 'message': message, 'errorMessage':errorMessage})
+    return render(request, 'covid-19/bedrequest.html', {'RequestForm': form, 'message': message, 'errorMessage':errorMessage})
     
 
 def saveBedRequest(request):
@@ -308,7 +308,7 @@ def otherRequest(request):
             message = "Cannot Save. Please try again"
     form = OtherRequestForm()
     # allRequests = OtherRequest.objects.all()
-    return render(request, 'covid19/bedrequest.html', {'RequestForm': form, 'message': message, 'errorMessage':errorMessage})
+    return render(request, 'covid-19/requests.html', {'RequestForm': form, 'message': message, 'errorMessage':errorMessage})
 
 
 
@@ -337,20 +337,22 @@ def contactform(request):
 
 
 def worldwide(request):
-    return render(request,'covid19/worldwide.html')
+    return render(request,'covid-19/worldwide.html')
 
 def vaccinations(request):
-    return render(request,'covid19/vaccinations.html')
+    return render(request,'covid-19/vaccinations.html')
 
 def tests(request):
-    return render(request,'covid19/tests.html')
+    return render(request,'covid-19/tests.html')
 
 def symptoms(request):
-    return render(request,'covid19/symptoms.html')
+    return render(request,'covid-19/symptoms.html')
 
 def hospitals(request):
-    return render(request,'covid19/nearby.html')
+    return render(request,'covid-19/nearby.html')
 
+def requests(request):
+    return render(request, 'covid-19/requests.html')
 
 def nearby(request):
     csv_path = os.path.join(CORE_DIR, 'core/static/data/private-hospitals-list.csv')
@@ -367,4 +369,4 @@ def nearby(request):
     
 
     # message = "CSV Path "
-    return render(request, 'covid19/nearby.html', {'Hospitals': selectedHospitals,'d': data})
+    return render(request, 'covid-19/nearby.html', {'Hospitals': selectedHospitals,'d': data})

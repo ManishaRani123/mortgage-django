@@ -13,6 +13,7 @@ urlpatterns = [
     path('bedrequest', views.bedRequest, name="bedRequest"),
     path('donateplasma', views.donatePlasma, name="donatePlasma"),
     path('otherRequest', views.otherRequest, name="otherRequest"),
+    path('requests', views.requests, name="requests"),
     path('saveBedRequest', views.saveBedRequest, name="saveBedRequest"),
     path('contact', views.contactform, name="contactform"),
     path('worldwide', views.worldwide, name="worldwide"),
