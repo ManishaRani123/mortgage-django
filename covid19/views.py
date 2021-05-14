@@ -218,7 +218,7 @@ def bedRequest(request):
 
 def saveBedRequest(request):
     allRequests = RequestBed.objects.all()
-    RequestForm = ContactForm()
+    RequestForm = RequestBedForm()
     message = str(allRequests.count()) + " Bed Requests"
     context = {'bedRequests': allRequests, 'totalRequest': message, 'RequestForm': RequestForm}
     return render(request, 'covid19/bedrequest.html', context)
@@ -316,7 +316,7 @@ def otherRequest(request):
 def contactform(request):
     message = ""
     if request.method == 'POST':
-        form = ContactForm(request.POST)
+        form = RequestBedForm(request.POST)
         message = form;
         if form.is_valid():
 
@@ -330,7 +330,7 @@ def contactform(request):
             message = "Saved Successfully"
             # return HttpResponseRedirect(Reversible(contact_details, args=(new_contact.pk,)))
     else:
-        form = ContactForm()
+        form = RequestBedForm()
         message = "Cannot Save. Please try again"
         
     return render(request, 'covid-19/contactform.html', {'form': form, 'message': message})
