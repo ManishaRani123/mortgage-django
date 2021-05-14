@@ -266,7 +266,7 @@ def donatePlasma(request):
             message = "Cannot Save. Please try again"
     form = DonatePlasmaForm()
     allRequests = DonatePlasma.objects.all()
-    return render(request, 'covid19/donateplasma.html', {'bedRequests': allRequests, 'RequestForm': form, 'message': message, 'errorMessage':errorMessage})
+    return render(request, 'covid-19/donateplasma.html', {'bedRequests': allRequests, 'RequestForm': form, 'message': message, 'errorMessage':errorMessage})
 
 
 # OtherRequest
@@ -333,7 +333,7 @@ def contactform(request):
         form = ContactForm()
         message = "Cannot Save. Please try again"
         
-    return render(request, 'covid19/contactform.html', {'form': form, 'message': message})
+    return render(request, 'covid-19/contactform.html', {'form': form, 'message': message})
 
 
 def worldwide(request):

@@ -35,155 +35,15 @@
                 
                 <div class="col-md-12">
 					<div class="card">
-						<div class="card-header"> 
-							<h4 class="card-title">Request received during COVID19</h4>
-						</div>
+					
 						<div class="card-body">
-							<ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
-								<li class="nav-item submenu">
-									<a class="nav-link active show" id="pills-bedRequest-tab" data-toggle="pill" href="#pills-bedRequest" role="tab" aria-controls="pills-bedRequest" aria-selected="true">Bed Requests</a>
-								</li>
-								<li class="nav-item submenu">
-									<a class="nav-link" id="pills-plasmaRequest-tab" data-toggle="pill" href="#pills-plasmaRequest" role="tab" aria-controls="pills-plasmaRequest" aria-selected="false">Plasma Request/Donate</a>
-								</li>
-								<li class="nav-item submenu">
-									<a class="nav-link" id="pills-foodRequest-tab" data-toggle="pill" href="#pills-foodRequest" role="tab" aria-controls="pills-foodRequest" aria-selected="false">Food Request</a>
-								</li>
-                                <li class="nav-item submenu">
-									<a class="nav-link" id="pills-oxygenRequest-tab" data-toggle="pill" href="#pills-oxygenRequest" role="tab" aria-controls="pills-oxygenRequest" aria-selected="false">Oxygen Request</a>
-								</li>
-                                <li class="nav-item submenu">
-									<a class="nav-link" id="pills-cremationRequest-tab" data-toggle="pill" href="#pills-cremationRequest" role="tab" aria-controls="pills-cremationRequest" aria-selected="false">Cremation</a>
-								</li>
-                                <li class="nav-item submenu">
-									<a class="nav-link" id="pills-quarantineRequest-tab" data-toggle="pill" href="#pills-quarantineRequest" role="tab" aria-controls="pills-quarantineRequest" aria-selected="false">Quarantine Space Request</a>
-								</li>
-                                <li class="nav-item submenu">
-									<a class="nav-link" id="pills-otherRequest-tab" data-toggle="pill" href="#pills-otherRequest" role="tab" aria-controls="pills-otherRequest" aria-selected="false">Others</a>
-								</li>
-							</ul>
-							<div class="tab-content mt-2 mb-3" id="pills-tabContent">
-								<div class="tab-pane fade active show" id="pills-bedRequest" role="tabpanel" aria-labelledby="pills-bedRequest-tab">
-                                    {% include "covid-19/partials/recentBedRequest.html" %}
-								</div>
-								<div class="tab-pane fade" id="pills-plasmaRequest" role="tabpanel" aria-labelledby="pills-plasmaRequest-tab">
-									{% include "covid-19/partials/RecentPlasmaRequests.html" %}
-								</div>
-								<div class="tab-pane fade" id="pills-foodRequest" role="tabpanel" aria-labelledby="pills-foodRequest-tab">
-									{% include "covid-19/partials/otherRequestFood.html" %}
-								</div>
-                                <div class="tab-pane fade" id="pills-oxygenRequest" role="tabpanel" aria-labelledby="pills-oxygenRequest-tab">
-									{% include "covid-19/partials/otherRequestOxygen.html" %}
-								</div>
-                                <div class="tab-pane fade" id="pills-cremationRequest" role="tabpanel" aria-labelledby="pills-cremationRequest-tab">
-									{% include "covid-19/partials/otherRequestCremation.html" %}
-								</div>
-                                <div class="tab-pane fade" id="pills-quarantineRequest" role="tabpanel" aria-labelledby="pills-quarantineRequest-tab">
-									{% include "covid-19/partials/otherQuarantineRequest.html" %}
-								</div>
-                                <div class="tab-pane fade" id="pills-otherRequest" role="tabpanel" aria-labelledby="pills-otherRequest-tab">
-									{% include "covid-19/partials/otherRequestOther.html" %}
-								</div>
-							</div>
+							{% include "covid-19/partials/recentBedRequest.html" %}
+
+                            {% include "covid-19/partials/_newRequestBed.html" %}
 						</div>
 					</div>
 				</div>
 
-
-
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="d-flex align-items-center">
-                                <h4 class="card-title">Live Bed Requests ({{bedRequests.count}})</h4>
-                                <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#requestBedModal">
-                                    <i class="fa fa-plus"></i>
-                                    Request Bed
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <!-- Modal -->
-                            {% include "covid-19/partials/_newRequestBed.html" %}
-
-                            {% include "covid-19/partials/_newRequestPlasma.html" %}
-
-                            {% include "covid-19/partials/_newRequestOthers.html" %}
-
-                            <div class="table-responsive">
-                                {{errorMessage}}
-                                <table id="multi-filter-select" class="display table table-striped table-hover" >
-                                    <thead>
-                                        <tr>
-                                            <th>Urgency</th>
-                                            <th>Type</th>
-                                            <th>Name</th>
-                                            <th>Address</th>
-                                            <th>State</th>
-                                            <th>No. Required</th>
-                                            <th>Request Received</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Urgency</th>
-                                            <th>Type</th>
-                                            <th>Name</th>
-                                            <th>Address</th>
-                                            <th>State</th>
-                                            <th>No. Required</th>
-                                            <th>Request Received</th>
-                                            <th></th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-
-                                    {% for bedReq in bedRequests %}
-                                    <tr>
-                                        <td>
-                                            {% if bedReq.urgency == 'Urgent' %}
-                                            <span class="btn btn-danger btn-sm">{{bedReq.urgency}}</span>
-
-                                            {% elif bedReq.urgency == 'Not Urgent' %}
-                                            <span class="btn btn-primary btn-sm">{{bedReq.urgency}}</span>
-
-                                            {% else %}
-                                            <span class="btn btn-default btn-sm">{{bedReq.urgency}}</span>
-                                            {% endif %}
-                                                
-                                        </td>
-                                        <td>{{bedReq.bedType}}</td>
-                                        <td>{{bedReq.full_name}}</td>
-                                        <td>{{bedReq.streetAddress}} {{bedReq.city}} </td>
-                                        <td>{{bedReq.state}} Australia </td>
-                                        <td>{{bedReq.bedsQty}}</td>
-                                        <td>{{bedReq.requestOn|timesince}}</td>
-                                        <td>
-                                            <div class="form-button-action">
-                                                <button type="button" data-toggle="tooltip" title="Offer Help" class="btn btn-link btn-success btn-lg" data-original-title="Offer Help">
-                                                    <i class="fa fa-hands"></i> Help
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            {% comment %} <div class="row">
-                                <form action="/covid19/contact" method="post">
-                                    {% csrf_token %}
-                                    {{ RequestForm.as_p }}
-                                    <input type="submit" value="Submit">
-                                </form>
-                            </div> {% endcomment %}
-                            
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
