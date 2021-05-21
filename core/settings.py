@@ -145,11 +145,11 @@ EMAIL_USE_TLS = True
 # EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.gmail.com'
 DEFAULT_FROM_EMAIL = "aryalnishan@gmail.com"
-SERVER_EMAIL = "aryalnishan@gmail.com"
-ADMIN_EMAIL = 'wowhimalayas@gmail.com'
+SERVER_EMAIL = "itsmeasmitapandey@gmail.com"
+ADMIN_EMAIL = 'itsmeasmitapandey@gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "aryalnishan@gmail.com"
-EMAIL_HOST_PASSWORD = "hovfgubzpbowwnee"
+EMAIL_HOST_PASSWORD = "vcbwzmyveijudybr"
 
 
 # #Production

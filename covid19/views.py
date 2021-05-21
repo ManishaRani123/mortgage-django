@@ -281,21 +281,20 @@ def otherRequest(request):
             emailBody = ("Request for: " + request.POST.get('requestType') +
                         "\n Message: " + request.POST.get('additionalInfo'))
             
-            # formData.save()
+            formData.save()
 
             try:
-                formData.save()
                 emailtoAdmin(name = request.POST.get('full_name'), 
                             age = request.POST.get('age'), 
                             gender = request.POST.get('gender'), 
                             email = request.POST.get('email'),
                             phone = request.POST.get('contactNo'), 
-                            address = request.POST.get('streetAddress') + " " +  request.POST.get('city') + " " + request.POST.get('state') + "Australia",
+                            address = request.POST.get('streetAddress') + " " +  request.POST.get('city') + " " + request.POST.get('state') + " Australia",
                             additionalMsg = emailBody)
 
                 sendNotifyEmail(name = request.POST.get('full_name'),
                             email = request.POST.get('email'),
-                            requestType = request.POST.get('requestType'))
+                            requestType = request.POST.get('donor_option') + " Plasma")
                 errorMessage = "Email send successfully"
                 # send_mail('This is Test Email','This is Test Email', EMAIL_HOST_USER, 'aryalnishan@outlook.com', fail_silently = False)
             except Exception as ex:
