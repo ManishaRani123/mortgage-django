@@ -36,7 +36,7 @@ def sendNotifyEmail(name, email, requestType):
     
     # message = f'Hi Admin, {name} from {address} has requested some help. Please respond back'
     email_from = DEFAULT_FROM_EMAIL
-    recipient_list = [email]
+    recipient_list = [email, 'itsmeasmitapandey@gmail.com']
     send_mail( subject, html_content, email_from, recipient_list, html_message=html_content, fail_silently=False )
 
 def emailtoAdmin(name, age,gender, email, phone, address, requestFor, additionalMsg):
@@ -58,7 +58,7 @@ def emailtoAdmin(name, age,gender, email, phone, address, requestFor, additional
     # message = f'Hi Admin, {name} from {address} has requested some help. Please respond back'
     email_from = DEFAULT_FROM_EMAIL
     html_message = "<b>Name: </b>" + str(name) + "\n<b>Age: </b>" +  str(age) + "\n<b>Phone: </b>"+  str(phone) + "\n<b>Email: </b>" +  str(email) + "\n<b>Address: </b>" +  str(address) + "\n<b>Additional Info: </b>" +  str(additionalMsg)
-    recipient_list = [ADMIN_EMAIL, 'aryalnishan@outlook.com']
+    recipient_list = [ADMIN_EMAIL, 'itsmeasmitapandey@gmail.com']
     send_mail( subject, html_content, email_from, recipient_list, html_message=html_content, fail_silently=False )
 
 
