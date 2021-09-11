@@ -1,0 +1,161 @@
+{% extends "frontend/layouts/base.html" %}
+
+{% block title %} {{PropertyDetail.propertyName}} {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Start Banner  -->
+			<section class="page-title-banner" style="background-image:url(/media/{{PropertyDetail.propertyImage}});">
+				<div class="container">
+					<div class="row m-0 align-items-end detail-swap">
+						<div class="tr-list-wrap">
+							<div class="tr-list-detail">
+								<div class="tr-list-thumb">
+									<img src="/static/frontend/img/user-2.png" class="img-responsive" alt="" />
+								</div>
+								<div class="tr-list-info">
+									<div class="cate-gorio"><a href="#">{{PropertyDetail.propertyType}} - {{PropertyDetail.useOptions}}</a></div>
+									<h4 class="veryfied-list">{{PropertyDetail.propertyName}}</h4>
+									<p><i class="ti-location-pin"></i>{{PropertyDetail.streetAddress}} {{PropertyDetail.city}} {{PropertyDetail.state}}</p>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!--  End Banner -->
+
+
+            <!-- Property Detail Start  -->
+			<section class="gray">
+				<div class="container">
+					<div class="row">
+						
+						<!-- property main detail -->
+						<div class="col-lg-8 col-md-12 col-sm-12">
+							
+							<!-- Single Block Wrap -->
+							<div class="Reveal-block-wrap">
+								
+								<div class="Reveal-block-header">
+									<h4 class="block-title">Description</h4>
+								</div>
+								
+								<div class="Reveal-block-body">
+									<p>{{PropertyDetail.description}}</p>
+								</div>
+								
+							</div>
+							
+							<!-- Single Block Wrap -->
+							<div class="Reveal-block-wrap">								
+								<div class="Reveal-block-header">
+									<h4 class="block-title">Features & Amenities</h4>
+								</div>
+								
+								<div class="Reveal-block-body">
+									<ul class="avl-features two">
+										<li><b>Land Area (Approx): </b>{{PropertyDetail.landAreaApprox}} sqm</li>
+										<li><b>Floor Area (Approx): </b>{{PropertyDetail.floorAreaApprox}} sqm</li>
+                                        <li><b>No of Bedroom(s): </b>{{PropertyDetail.noOfBedrooms}} Bedroom(s)</li>
+                                        <li><b>No of Kitchen(s): </b>{{PropertyDetail.noOfKitchen}} Kitchen(s)</li>
+                                        <li><b>No of Hall(s): </b>{{PropertyDetail.noOfHall}} Hall(s)</li>
+                                        <li><b>No of Bathroom(s): </b>{{PropertyDetail.noOfBathrooms}} Bathroom(s)</li>
+                                        <li><b>Parking(s): </b>{{PropertyDetail.parking}} parking(s) available</li>
+									</ul>
+								</div>								
+							</div>
+
+                            <!-- Single Block Wrap -->
+							<div class="Reveal-block-wrap">								
+								<div class="Reveal-block-header">
+									<h4 class="block-title">Additional Information</h4>
+								</div>
+								
+								<div class="Reveal-block-body">
+									{{PropertyDetail.additionalInfo|escape}} 
+								</div>								
+							</div>
+							
+							
+						</div>
+						
+						<!-- Listing Sidebar -->
+						<div class="col-lg-4 col-md-12 col-sm-12">
+							
+							<div class="verified-list mb-4">
+								AUD <i class="ti-money"></i>{{PropertyDetail.price}} ({{PropertyDetail.priceOption}})
+							</div>
+							
+							<div class="page-sidebar">
+
+                                <!-- Contact Information -->
+								<div class="imp-boxes">
+									<div class="imp-boxes-single">
+										<div class="imp-boxes-single-icon"><img src="/static/frontend/img/phone.svg" width="25" alt="" /></div>
+										<div class="imp-boxes-single-content">{{PropertyDetail.contactNo}}</div>
+									</div>
+									<div class="imp-boxes-single">
+										<div class="imp-boxes-single-icon"><img src="/static/frontend/img/mail.svg" width="25" alt="" /></div>
+										<div class="imp-boxes-single-content">{{PropertyDetail.email}}</div>
+									</div>
+									<div class="imp-boxes-single">
+										<div class="imp-boxes-single-icon"><img src="/static/frontend/img/share.svg" width="25" alt="" /></div>
+										<div class="imp-boxes-single-content">
+											<ul>
+												<li><a href="#"><i class="ti-facebook"></i></a></li>
+												<li><a href="#"><i class="ti-twitter"></i></a></li>
+												<li><a href="#"><i class="ti-google"></i></a></li>
+												<li><a href="#"><i class="ti-instagram"></i></a></li>
+												<li><a href="#"><i class="ti-linkedin"></i></a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<!-- Contact Information -->	
+
+
+							
+								<!-- SendMessage Widget -->
+								<div class="Reveal-side-widget form-submit">
+							
+									<div class="Reveal-Reveal-side-widget-body">
+										<div class="form-group">
+											<label>Full Name</label>
+											<input type="text" class="form-control" placeholder="Your Name">
+										</div>
+										<div class="form-group">
+											<label>Email</label>
+											<input type="text" class="form-control" placeholder="Your Email">
+										</div>
+										<div class="form-group">
+											<label>Message</label>
+											<textarea class="form-control" placeholder="Send Message to author..."></textarea>
+										</div>
+										<button class="btn btn-theme full-width">Send Message</button>
+									</div>
+								</div>
+                                <!--SendMessage Widget-->
+																
+													
+							
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</section>
+			<!-- Property Detail End -->
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+
+{% endblock javascripts %}

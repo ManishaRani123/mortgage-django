@@ -1,0 +1,66 @@
+{% extends "frontend/layouts/base.html" %}
+
+{% block title %} Flats, Roms and Office Spaces {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+
+			<!-- ================= Recent Listings ========================= -->
+			<section>
+				<div class="container">
+				    <div class="tab-content">
+                        <div class="row">
+							{% for data in searchData %}
+							<!-- Single Listing Grid -->
+							<div class="col-lg-4 col-md-6 col-sm-12">
+								<div class="Reveal-grid-wrapper">
+									<div class="list-badge closed">{{data.useOptions}}</div>
+									<div class="Reveal-grid-thumb">
+										<div class="Reveal-listing-price-info"> 
+											<span class="pricetag">${{data.price}}</span>
+										</div>										
+										<div class="lup-category"><a href="/search/{{data.propertyType}}">{{data.propertyType}}</a></div>
+										<a href="listings/{{data.slug}}" class="lup-box"><img src="/media/{{data.propertyImage}}" class="img-fluid" alt="" /></a>
+									</div>
+									<div class="Reveal-grid-caption">
+										<div class="Reveal-grid-caption-header">
+											<h4 class="Reveal-header-title"><a href="listings/{{data.slug}}">{{data.propertyName}}</a></h4>
+										</div>
+									</div>
+									<div class="Reveal-grid-footer">
+										<div class="Reveal-grid-footer-flex">
+											<div class="Reveal-author-caption">
+												<div class="Reveal-author-thumb">
+													<img src="frontend/img/user-4.png" class="img-fluid" alt="" />
+												</div>
+												<div class="Reveal-author-header">
+													<h4>{{featuredProperty.priceOption}}<br>
+													<span><i class="fa fa-map-marker"></i>{{data.streetAddress}} {{data.city}} {{data.state}}</span></h4>
+												</div>
+											</div>
+										</div>
+										<div class="Reveal-grid-footer-last">
+											<a href="listings/{{data.slug}}" class="Reveal-view-btn">View</a>	
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+							
+							
+						</div>
+				    </div>	
+				</div>
+			</section>
+			<!-- ================================ Recent Listings ==================================== -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+
+{% endblock javascripts %}

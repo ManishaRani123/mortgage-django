@@ -1,0 +1,140 @@
+
+{% extends "frontend/layouts/base.html" %}
+
+{% block title %} Login {% endblock title %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    			<section class="gray">
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-lg-7 col-md-10">
+							<div class="loving-modern-login">
+                        
+                               <div class="text-center mb-4"><img src="/static/frontend/img/logo.png" class="img-fluid" alt="" /></div>
+								<div class="row main_login_form">
+									<div class="login_form_dm">
+                                         {% if msg %}
+                                <span class="text-danger">{{ msg | safe }}</span>
+                            {% else %}
+                            <h3 class="text-center">
+                                Register New User (SignUp)
+                            </h3>
+                            {% endif %}
+                                    <hr>
+
+                                     <form method="post" action="">
+
+                        {% csrf_token %}
+
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                     <div class="form-group">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="icon-user"></i>
+                                                </span>
+                                            </div>
+                                            {{ form.first_name }}
+                                        </div>
+                                    </div>
+                                    <span class="text-danger">{{ form.first_name.errors }}</span>
+                                    <br>
+
+                                     <div class="form-group">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="icon-user"></i>
+                                                </span>
+                                            </div>
+                                            {{ form.last_name }}
+                                        </div>
+                                    </div>
+                                    <span class="text-danger">{{ form.last_name.errors }}</span>
+                                     <br>
+
+
+                                    <div class="form-group">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="icon-user"></i>
+                                                </span>
+                                            </div>
+                                            {{ form.username }}
+                                        </div>
+                                    </div>
+                                    <span class="text-danger">{{ form.username.errors }}</span>
+                                     <br>
+
+                                    <div class="form-group">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="icon-envelope"></i>
+                                                </span>
+                                            </div>
+                                            {{ form.email }}
+                                        </div>
+                                    </div>
+                                    <span class="text-danger">{{ form.email.errors }}</span>
+                                     <br>
+
+                                    <div class="form-group">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="icon-lock"></i>
+                                                </span>
+                                            </div>
+                                            {{ form.password1 }}
+                                        </div>
+                                    </div>
+                                    <span class="text-danger">{{ form.password1.errors }}</span>
+                                     <br>
+
+                                    <div class="form-group">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="icon-lock"></i>
+                                                </span>
+                                            </div>
+                                            {{ form.password2 }}
+                                        </div>
+                                    </div>
+                                    <span class="text-danger">{{ form.password2.errors }}</span>
+                                     <br>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-action text-center">
+                            <button type="submit" class="btn btn-success">Register Now</button>
+                            <hr>
+                            <span>Already have and account?</span> <a href="{% url 'login' %}" ><b>Login</b></a>
+                        </div>
+
+                    </form>
+
+
+                            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </section>
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

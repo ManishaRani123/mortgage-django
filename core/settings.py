@@ -1,7 +1,4 @@
 # -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
 
 import os
 from decouple import config
@@ -31,7 +28,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',  # Enable the inner app 
-    'covid19' # Enable the Covid19 App
+    'covid19', 
+    'property',
+    'paypal.standard.ipn' 
+    
 ]
 
 MIDDLEWARE = [
@@ -61,7 +61,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'covid19.context_processors.summaryData',
+                'app.context_processors.sharedData',
             ],
         },
     },
@@ -82,12 +82,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'covid19-response',
-            'USER': 'saadmin@covid-response',
-            'PASSWORD': 'Nepal@12345$$',
-            'HOST': 'covid-response.mysql.database.azure.com',
+            'NAME': 'mortgage',
+            'USER': 'root',
+            'PASSWORD': '',
+            'HOST': 'localhost',
             'PORT': '3306',
-            'OPTIONS': {'ssl': True},
+            'OPTIONS': {'ssl': False},
         }
     }
 
@@ -130,6 +130,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATIC_ROOT = os.path.join(CORE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+
+# Uploading image in Django
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+
+PAYPAL_RECEIVER_EMAIL = 'youremail@mail.com'
+
+PAYPAL_TEST = True
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (

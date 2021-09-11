@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+	<title>
+         {% block title %}{% endblock %} | {{appName}}
+    </title>
+
+	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+	<link rel="icon" href="/static/frontend/img/icon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="">
+
+      <!-- All Plugins Css -->
+    <link rel="stylesheet" href="/static/frontend/css/plugins.css">
+     
+    <!-- Custom CSS -->
+    <link href="/static/frontend/css/styles.css" rel="stylesheet">
+    
+    <!-- Custom Color Option -->
+    <link href="/static/frontend/css/colors.css" rel="stylesheet">
+
+    <!-- Specific Page CSS goes HERE  -->
+    {% block stylesheets %}{% endblock stylesheets %}
+
+</head>
+
+
+<body class="red-skin">
+
+    <!-- Preloader - style you can find in spinners.css -->
+	<div id="preloader"><div class="preloader"><span></span><span></span></div></div>
+    <!-- ./Preloader -->
+
+	<div class="main-wrapper">
+
+        {% include 'frontend/includes/navigation.html' %}
+
+        <div class="clearfix"></div>
+
+		{% block content %}{% endblock content %}
+
+		{% include 'frontend/includes/footer.html' %}
+
+        
+		{% if request.user.is_authenticated %}
+
+		{% endif %}
+
+        <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+        
+
+	</div>
+
+	{% include 'frontend/includes/scripts.html' %}
+
+    <!-- Specific Page JS goes HERE  -->
+    {% block javascripts %}{% endblock javascripts %}
+
+</body>
+</html>

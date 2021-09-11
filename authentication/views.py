@@ -13,6 +13,12 @@ from django.forms.utils import ErrorList
 from django.http import HttpResponse
 from .forms import LoginForm, SignUpForm
 
+from django.http.response import HttpResponseRedirect, JsonResponse
+from django.contrib.auth.decorators import login_required
+
+
+# from django.contrib.auth.models import User
+
 def login_view(request):
     form = LoginForm(request.POST or None)
 
@@ -32,7 +38,7 @@ def login_view(request):
         else:
             msg = 'Error validating the form'    
 
-    return render(request, "accounts/login.html", {"form": form, "msg" : msg})
+    return render(request, "accounts/login-new.html", {"form": form, "msg" : msg})
 
 def register_user(request):
 
@@ -50,11 +56,22 @@ def register_user(request):
             msg     = 'User created - please <a href="/login">login</a>.'
             success = True
             
-            #return redirect("/login/")
+            return redirect("/login/")
 
         else:
             msg = 'Form is not valid'    
     else:
         form = SignUpForm()
 
-    return render(request, "accounts/register.html", {"form": form, "msg" : msg, "success" : success })
+    return render(request, "accounts/register-user.html", {"form": form, "msg" : msg, "success" : success })
+
+@login_required(login_url="/login/")
+# Profile 
+def profile(request):
+    current_user = request.user
+    data = User.objects.get(id = current_user.id)
+    # return render(request, 'accounts/profile.html', {'UserData': data})
+
+    # data = Property.objects.get(slug = Slug)
+    context = {'UserData': data, 'Username': current_user.username}
+    return render(request, "accounts/profile.html", context)

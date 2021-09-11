@@ -1,0 +1,61 @@
+<div class="header header-light">
+				<div class="container">
+					<nav id="navigation" class="navigation navigation-landscape">
+						<div class="nav-header">
+							<a class="nav-brand" href="{% url 'home' %}">
+								<img src="/static/frontend/img/logo-dark.png" class="logo hd-992" alt="{{appName}}" />
+								<img src="/static/frontend/img/logo.png" class="logo sw-m" alt="{{appName}}" />
+							</a>
+							<div class="nav-toggle"></div>
+						</div>
+						<div class="nav-menus-wrapper" style="transition-property: none;">
+							<ul class="nav-menu">
+								<li><a href="{% url 'home' %}">Home</a></li>                   
+								<li><a href="javascript:void(0);">Show Categories<span class="submenu-indicator"></span></a>
+									<ul class="nav-dropdown nav-submenu">
+										<li><a href="/search/Flat">Flat</a></li>
+										<li><a href="/search/Apartment">Apartment</a></li>
+										<li><a href="/search/Home/">Home</a></li>
+										<li><a href="/search/OfficeSpace/">Office Space</a></li>
+										<li><a href="/search/Showrooms-Bulky-Goods/">Showrooms/Bulky Goods</a></li>
+										<li><a href="/search/Commercial-Building/">Commercial Building</a></li>
+
+									</ul>
+								</li>
+								<li><a href="{% url 'home' %}">About Us</a></li>
+								
+							</ul>
+
+							<ul class="nav-menu nav-menu-social align-to-right">
+								{% if request.user.is_authenticated %}
+								<li class="attributes">
+									<div class="btn-group account-drop">
+										<button type="button" class="btn btn-order-by-filt theme-cl" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<img src="/static/frontend/img/user-1.png" class="avater-img" alt="{{ request.user.username }}"> {{ request.user.username }}
+										</button>
+										<div class="dropdown-menu pull-right animated flipInX">
+											<a href=""><i class="ti-dashboard"></i>Manage Profile</a>
+											<a class="active" href="{% url 'logout' %}"><i class="ti-unlock"></i>Logout</a>
+										</div>
+									</div>
+								</li>
+
+								{% else %}
+									<li>
+									<a href="{% url 'login' %}">
+										<i class="fa fa-sign-in-alt mr-1"></i><span class="dn-lg">Sign In</span>
+									</a>
+								</li>
+								{% endif %}
+								
+								<li class="add-listing bg-whit">
+									<a href="">
+										 <i class="fas fa-plus-circle"></i> Contact
+									</a>
+								</li>
+
+							</ul>
+						</div>
+					</nav>
+				</div>
+			</div>

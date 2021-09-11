@@ -1,0 +1,160 @@
+{% extends "frontend/layouts/base.html" %}
+
+{% block title %} Flats, Roms and Office Spaces {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- ============================ Hero Banner  Start================================== -->
+			<div class="image-cover hero-banner" style="background:#94003c url(assets/img/landing-bg.png) no-repeat;"  data-overlay="0">
+				<div class="container">
+					<div class="row justify-content-center text-center">
+						<div class="col-lg-9 col-md-12">
+							<p class="lead-i m-0">Find Your Dream Places</p>
+							<h1 class="big-header-capt capti">Discover Your Places</h1>
+
+							<div class="popular-cat-list">
+								<ul class="large-cates">
+									<li><a href="/search/Flat">Flat</a></li>
+									<li><a href="/search/Apartment">Apartment</a></li>
+									<li><a href="/search/Home/">Home</a></li>
+									<li><a href="/search/OfficeSpace/">Office Space</a></li>
+									<li><a href="/search/Showrooms-Bulky-Goods/">Showrooms/Bulky Goods</a></li>
+									<li><a href="/search/Commercial-Building/">Commercial Building</a></li>
+								</ul>	
+							</div>
+						
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ============================ Hero Banner End ================================== -->
+
+
+			<!-- ================= Recent Listings ========================= -->
+			<section>
+				<div class="container">
+				
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs nav-advance theme-bg" role="tablist">
+						<li class="nav-item active">
+							<a class="nav-link" data-toggle="tab" href="#recent" role="tab">
+							Recent Listing</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#featured" role="tab">
+							Featured Listing</a>
+						</li>
+					</ul>
+					
+					<div class="tab-content">
+					
+					<!-- Recent Listings -->
+					<div class="tab-pane fade in show active" id="recent" role="tabpanel">
+						<div class="row">
+							{% for recentListing in RecentListings %}
+							<!-- Single Listing Grid -->
+							<div class="col-lg-4 col-md-6 col-sm-12">
+								<div class="Reveal-grid-wrapper">
+									<div class="list-badge closed">{{recentListing.useOptions}}</div>
+									<div class="Reveal-grid-thumb">
+										<div class="Reveal-listing-price-info"> 
+											<span class="pricetag">${{recentListing.price}}</span>
+										</div>										
+										<div class="lup-category"><a href="search-with-sidebar.html">{{recentListing.propertyType}}</a></div>
+										<a href="listings/{{recentListing.slug}}" class="lup-box"><img src="media/{{recentListing.propertyImage}}" class="img-fluid" alt="" /></a>
+									</div>
+									<div class="Reveal-grid-caption">
+										<div class="Reveal-grid-caption-header">
+											<h4 class="Reveal-header-title"><a href="listings/{{recentListing.slug}}">{{recentListing.propertyName}}</a></h4>
+										</div>
+									</div>
+									<div class="Reveal-grid-footer">
+										<div class="Reveal-grid-footer-flex">
+											<div class="Reveal-author-caption">
+												<div class="Reveal-author-thumb">
+													<img src="frontend/img/user-4.png" class="img-fluid" alt="" />
+												</div>
+												<div class="Reveal-author-header">
+													<h4>{{featuredProperty.priceOption}}<br>
+													<span><i class="fa fa-map-marker"></i>{{recentListing.streetAddress}} {{recentListing.city}} {{recentListing.state}}</span></h4>
+												</div>
+											</div>
+										</div>
+										<div class="Reveal-grid-footer-last">
+											<a href="listings/{{recentListing.slug}}" class="Reveal-view-btn">View</a>	
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+							
+							
+						</div>
+					</div>
+					
+					<!-- Featured listings -->
+					<div class="tab-pane fade" id="featured" role="tabpanel">
+						<div class="row">
+						
+							{% for featuredProperty in featuredListings %}
+							<!-- Single Listing Grid -->
+							<div class="col-lg-4 col-md-6 col-sm-12">
+								<div class="Reveal-grid-wrapper">
+									<div class="list-badge now-open">{{featuredProperty.useOptions}}</div>
+									<div class="Reveal-grid-thumb">
+										<div class="Reveal-listing-price-info"> 
+											<span class="pricetag">${{featuredProperty.price}}</span>
+										</div>										
+										<div class="lup-category"><a href="search-with-sidebar.html">{{featuredProperty.propertyType}}</a></div>
+										<a href="listings/{{featuredProperty.slug}}" class="lup-box"><img src="media/{{featuredProperty.propertyImage}}" class="img-fluid" alt="" /></a>
+									</div>
+									<div class="Reveal-grid-caption">
+										<div class="Reveal-grid-caption-header">
+											<h4 class="Reveal-header-title"><a href="listings/{{featuredProperty.slug}}">{{featuredProperty.propertyName}}</a></h4>
+										</div>
+									</div>
+									<div class="Reveal-grid-footer">
+										<div class="Reveal-grid-footer-flex">
+											<div class="Reveal-author-caption">
+												<div class="Reveal-author-thumb">
+													<img src="frontend/img/user-4.png" class="img-fluid" alt="" />
+												</div>
+												<div class="Reveal-author-header">
+													<h4>{{featuredProperty.priceOption}}<br>
+													<span><i class="fa fa-map-marker"></i>{{featuredProperty.streetAddress}} {{featuredProperty.city}} {{featuredProperty.state}}</span></h4>
+												</div>
+											</div>
+										</div>
+										<div class="Reveal-grid-footer-last">
+											<a href="listings/{{featuredProperty.slug}}" class="Reveal-view-btn">View</a>	
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+							
+						</div>	
+					</div>
+
+				</div>
+				
+				<div class="col-md-12 mrg-top-40">
+					<div class="text-center">
+						<a href="full-width-listing.html" class="btn btn-light btn-md rounded">Browse More Listings</a>
+					</div>
+				</div>
+					
+				</div>
+			</section>
+			<!-- ================================ Recent Listings ==================================== -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+
+{% endblock javascripts %}

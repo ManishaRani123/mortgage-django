@@ -2,8 +2,8 @@ from covid19.models import DonatePlasma, OtherRequest, RequestBed
 
 
 def summaryData(request):
-    appName = "COVID-19 Response"
-    copyRight = "© " + appName
+    # appName = "COVID-19 Response"
+    # copyRight = "© " + appName
     bedRequests = RequestBed.objects.filter(seenStatus = False)
     plasmaRequest = DonatePlasma.objects.all()
     otherRequest = OtherRequest.objects.all()
@@ -21,7 +21,6 @@ def summaryData(request):
             'otherRequestCremation': otherRequestCremation,
             'otherRequestQuarantineSpace': otherRequestQuarantineSpace,
             'otherRequestOther': otherRequestOther,
-            'appName': appName,
-            'copyRight': copyRight }
-
-
+            # 'appName': appName,
+            # 'copyRight': copyRight 
+            }

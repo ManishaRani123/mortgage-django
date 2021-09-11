@@ -10,6 +10,6 @@ class AuthorAdmin(admin.ModelAdmin):
     
 
     pass
-admin.site.register(RequestBed, AuthorAdmin)
-admin.site.register(DonatePlasma, AuthorAdmin)
-admin.site.register(OtherRequest, AuthorAdmin)
+# admin.site.register(RequestBed, AuthorAdmin)
+# admin.site.register(DonatePlasma, AuthorAdmin)
+# admin.site.register(OtherRequest, AuthorAdmin)
