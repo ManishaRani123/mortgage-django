@@ -110,7 +110,7 @@ class Request(models.Model):
         ('Unspecified', 'Unspecified')
     ]
     id = models.AutoField(primary_key=True)
-    user = models.OneToOneField(User, on_delete=models., verbose_name='User')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='User')
     full_name = models.CharField(max_length=200, verbose_name='Full Name')
     age = models.IntegerField()
     email = models.CharField(max_length=128, verbose_name='Email', null=True)

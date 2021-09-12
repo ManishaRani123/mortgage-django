@@ -79,15 +79,27 @@ WSGI_APPLICATION = 'core.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': 'mortgage',
+#             'USER': 'root',
+#             'PASSWORD': '',
+#             'HOST': 'localhost',
+#             'PORT': '3306',
+#             'OPTIONS': {'ssl': False},
+#         }
+#     }
+
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'mortgage',
-            'USER': 'root',
-            'PASSWORD': '',
-            'HOST': 'localhost',
+            'USER': 'mortgagedjango@mortgage-django',
+            'PASSWORD': 'Nepal@123',
+            'HOST': 'mortgage-django.mysql.database.azure.com',
             'PORT': '3306',
-            'OPTIONS': {'ssl': False},
+            'OPTIONS': {'ssl': True},
         }
     }
 
