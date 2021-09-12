@@ -101,7 +101,6 @@ class Request(models.Model):
         ('Moderate', 'Moderate'),
         ('Not Urgent', 'Not Urgent')
     ]
-
     Action_Status = [
         ('Request Received', 'Request Received'),
         ('Waiting', 'Waiting'),
@@ -110,21 +109,14 @@ class Request(models.Model):
         ('Approved', 'Approved'),
         ('Unspecified', 'Unspecified')
     ]
-
     id = models.AutoField(primary_key=True)
+    user = models.OneToOneField(User, on_delete=models., verbose_name='User')
     full_name = models.CharField(max_length=200, verbose_name='Full Name')
     age = models.IntegerField()
-    gender = models.CharField(choices=Gender, default='Other', max_length=10, verbose_name='Gender')
     email = models.CharField(max_length=128, verbose_name='Email', null=True)
     contactNo = models.CharField(max_length=30, verbose_name='Contact No')
-    streetAddress = models.CharField(max_length=200, verbose_name='Street Address')
-    city = models.CharField(max_length=300, verbose_name='City')
-    state = models.CharField( choices=States, default='', max_length=50, verbose_name='State')
-    requestType = models.CharField(choices=RequestType,default='Oxygen', max_length=100, verbose_name='Plasma Donate') 
     urgency = models.CharField(choices=Urgency_Options,default='Not Urgent', max_length=40, verbose_name='Urgency') 
     additionalInfo = models.TextField(verbose_name='Additional Information', blank=True, null=True)
-
     requestOn = models.DateTimeField(auto_now_add=True, blank=True, verbose_name="Request Date")
     seenStatus = models.BooleanField(default=False, verbose_name='Seen Status')
-
     action_status = models.CharField(choices=Action_Status,default='Receive', blank=True, max_length=200, verbose_name='Plasma Donate')
