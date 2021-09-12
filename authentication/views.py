@@ -70,8 +70,5 @@ def register_user(request):
 def profile(request):
     current_user = request.user
     data = User.objects.get(id = current_user.id)
-    # return render(request, 'accounts/profile.html', {'UserData': data})
-
-    # data = Property.objects.get(slug = Slug)
     context = {'UserData': data, 'Username': current_user.username}
     return render(request, "accounts/profile.html", context)
