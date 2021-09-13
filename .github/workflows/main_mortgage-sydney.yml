@@ -59,4 +59,4 @@ jobs:
         with:
           app-name: 'mortgage-sydney'
           slot-name: 'production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_3d0177f0b6124e3e8c09717d3fe30b0e }}
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_d3f25a3143c64e91b2a0d1d60cd452dc }}
