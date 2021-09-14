@@ -29,8 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',  # Enable the inner app 
     'covid19', 
-    'property',
-    'paypal.standard.ipn' 
+    'property'
     
 ]
 
