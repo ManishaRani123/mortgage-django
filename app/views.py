@@ -22,7 +22,6 @@ from django import template
 from django.contrib import messages
 from django.conf import settings
 from decimal import Decimal
-from paypal.standard.forms import PayPalPaymentsForm
 from .models import Property
 # from .forms import CartForm, CheckoutForm
 

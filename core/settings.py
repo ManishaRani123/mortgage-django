@@ -147,10 +147,6 @@ MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
-# PAYPAL_RECEIVER_EMAIL = 'youremail@mail.com'
-
-# PAYPAL_TEST = True
-
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(CORE_DIR, 'core/static'),
