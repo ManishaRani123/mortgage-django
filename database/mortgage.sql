@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 13, 2021 at 01:30 AM
+-- Generation Time: Sep 19, 2021 at 06:51 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -19,6 +19,45 @@ SET time_zone = "+00:00";
 --
 -- Database: `mortgage`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `app_booking`
+--
+
+CREATE TABLE `app_booking` (
+  `id` int(11) NOT NULL,
+  `full_name` varchar(200) NOT NULL,
+  `email` varchar(128) DEFAULT NULL,
+  `contactNo` varchar(30) NOT NULL,
+  `urgency` varchar(40) NOT NULL,
+  `additionalInfo` longtext,
+  `requestOn` datetime(6) NOT NULL,
+  `seenStatus` tinyint(1) NOT NULL,
+  `action_status` varchar(200) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `address` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `app_booking`
+--
+
+INSERT INTO `app_booking` (`id`, `full_name`, `email`, `contactNo`, `urgency`, `additionalInfo`, `requestOn`, `seenStatus`, `action_status`, `user_id`, `address`) VALUES
+(1, 'Nishan Kumar Aryal', 'aryalnishan@gmail.com', '9849845061', 'Urgent', '', '2021-09-12 14:55:29.269067', 1, 'Approved', 1, '-'),
+(2, 'Nishan Kumar Aryal', 'aryalnishan@gmail.com', '9849845061', 'Urgent', '', '2021-09-12 14:55:42.744081', 1, 'Approved', 1, '-');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `app_customers`
+--
+
+CREATE TABLE `app_customers` (
+  `customerid` int(11) NOT NULL,
+  `id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 -- --------------------------------------------------------
 
@@ -67,30 +106,15 @@ INSERT INTO `app_property` (`id`, `propertyName`, `propertyType`, `email`, `cont
 -- --------------------------------------------------------
 
 --
--- Table structure for table `app_request`
+-- Table structure for table `app_userpropertybookmark`
 --
 
-CREATE TABLE `app_request` (
+CREATE TABLE `app_userpropertybookmark` (
   `id` int(11) NOT NULL,
-  `full_name` varchar(200) NOT NULL,
-  `age` int(11) NOT NULL,
-  `email` varchar(128) DEFAULT NULL,
-  `contactNo` varchar(30) NOT NULL,
-  `urgency` varchar(40) NOT NULL,
-  `additionalInfo` longtext,
-  `requestOn` datetime(6) NOT NULL,
-  `seenStatus` tinyint(1) NOT NULL,
-  `action_status` varchar(200) NOT NULL,
+  `bookmarkedOn` datetime(6) NOT NULL,
+  `property_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `app_request`
---
-
-INSERT INTO `app_request` (`id`, `full_name`, `age`, `email`, `contactNo`, `urgency`, `additionalInfo`, `requestOn`, `seenStatus`, `action_status`, `user_id`) VALUES
-(1, 'Nishan Kumar Aryal', 30, 'aryalnishan@gmail.com', '9849845061', 'Urgent', '', '2021-09-12 14:55:29.269067', 1, 'Approved', 5),
-(2, 'Nishan Kumar Aryal', 30, 'aryalnishan@gmail.com', '9849845061', 'Urgent', '', '2021-09-12 14:55:42.744081', 1, 'Approved', 3);
 
 -- --------------------------------------------------------
 
@@ -200,7 +224,15 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (65, 'Can add request', 13, 'add_request'),
 (66, 'Can change request', 13, 'change_request'),
 (67, 'Can delete request', 13, 'delete_request'),
-(68, 'Can view request', 13, 'view_request');
+(68, 'Can view request', 13, 'view_request'),
+(69, 'Can add user property bookmark', 16, 'add_userpropertybookmark'),
+(70, 'Can change user property bookmark', 16, 'change_userpropertybookmark'),
+(71, 'Can delete user property bookmark', 16, 'delete_userpropertybookmark'),
+(72, 'Can view user property bookmark', 16, 'view_userpropertybookmark'),
+(73, 'Can add booking', 13, 'add_booking'),
+(74, 'Can change booking', 13, 'change_booking'),
+(75, 'Can delete booking', 13, 'delete_booking'),
+(76, 'Can view booking', 13, 'view_booking');
 
 -- --------------------------------------------------------
 
@@ -227,7 +259,7 @@ CREATE TABLE `auth_user` (
 --
 
 INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
-(1, 'pbkdf2_sha256$150000$IyPBvAOjlJoH$zouSA3xJABb5J6/Sx9P+OwrXpivvodGJZdWFp9OKW44=', '2021-09-12 03:04:25.724837', 1, 'admin', '', '', 'itsmeasmitapandey@gmail.com', 1, 1, '2021-09-09 00:42:01.733011'),
+(1, 'pbkdf2_sha256$150000$IyPBvAOjlJoH$zouSA3xJABb5J6/Sx9P+OwrXpivvodGJZdWFp9OKW44=', '2021-09-17 16:29:45.946114', 1, 'admin', '', '', 'itsmeasmitapandey@gmail.com', 1, 1, '2021-09-09 00:42:01.733011'),
 (2, 'pbkdf2_sha256$150000$Gg0WRA3nvHiw$Y60oBxEfeESdnXYRTHxyel0lhl4AWHN90wLniwIvueM=', '2021-09-11 07:13:22.337826', 0, 'asmitapandey', '', '', 'itsmeasmitapandey@gmail.com', 0, 1, '2021-09-11 06:17:34.133674'),
 (3, 'pbkdf2_sha256$150000$CWObER6qlEWk$vfyBhHqsoeWAEiBPnjX+EckJPDKISVyiCwaMfdmBb/Y=', NULL, 0, 'aryanamrit', 'Amrit', 'Aryal', 'rnamrit.kr@gmail.com', 0, 1, '2021-09-11 06:26:06.222456'),
 (5, 'pbkdf2_sha256$150000$aYvFKeMHSfxy$bnprVzEGBjn2IDXYyqlR7LiZ3OZTaBMObInEhXT8+WA=', NULL, 0, 'aryalnishan', 'Nishan', 'Aryal', 'aryalnishan@outlook.com', 0, 1, '2021-09-11 06:58:46.781440');
@@ -254,82 +286,6 @@ CREATE TABLE `auth_user_user_permissions` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `permission_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `covid19_donateplasma`
---
-
-CREATE TABLE `covid19_donateplasma` (
-  `id` int(11) NOT NULL,
-  `full_name` varchar(200) NOT NULL,
-  `age` int(11) NOT NULL,
-  `gender` varchar(10) NOT NULL,
-  `contactNo` varchar(20) NOT NULL,
-  `streetAddress` varchar(200) NOT NULL,
-  `city` varchar(300) NOT NULL,
-  `state` varchar(50) NOT NULL,
-  `additionalInfo` longtext,
-  `requestOn` datetime(6) NOT NULL,
-  `seenStatus` tinyint(1) NOT NULL,
-  `donor_option` varchar(100) NOT NULL,
-  `action_status` varchar(200) NOT NULL,
-  `email` varchar(128) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `covid19_otherrequest`
---
-
-CREATE TABLE `covid19_otherrequest` (
-  `id` int(11) NOT NULL,
-  `full_name` varchar(200) NOT NULL,
-  `age` int(11) NOT NULL,
-  `gender` varchar(10) NOT NULL,
-  `contactNo` varchar(30) NOT NULL,
-  `streetAddress` varchar(200) NOT NULL,
-  `city` varchar(300) NOT NULL,
-  `state` varchar(50) NOT NULL,
-  `requestType` varchar(100) NOT NULL,
-  `additionalInfo` longtext,
-  `requestOn` datetime(6) NOT NULL,
-  `seenStatus` tinyint(1) NOT NULL,
-  `action_status` varchar(200) NOT NULL,
-  `email` varchar(128) DEFAULT NULL,
-  `urgency` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `covid19_requestbed`
---
-
-CREATE TABLE `covid19_requestbed` (
-  `id` int(11) NOT NULL,
-  `full_name` varchar(200) NOT NULL,
-  `age` int(11) NOT NULL,
-  `gender` varchar(10) NOT NULL,
-  `contactNo` varchar(25) NOT NULL,
-  `streetAddress` varchar(200) NOT NULL,
-  `city` varchar(200) NOT NULL,
-  `state` varchar(150) NOT NULL,
-  `bedsQty` int(11) NOT NULL,
-  `urgency` varchar(40) NOT NULL,
-  `additionalInfo` longtext,
-  `o_name` varchar(200) DEFAULT NULL,
-  `o_contactNo` varchar(30) DEFAULT NULL,
-  `o_address` varchar(200) DEFAULT NULL,
-  `o_relation` varchar(100) DEFAULT NULL,
-  `requestOn` datetime(6) NOT NULL,
-  `seenStatus` tinyint(1) NOT NULL,
-  `bedType` varchar(30) NOT NULL,
-  `action_status` varchar(200) NOT NULL,
-  `email` varchar(128) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -391,10 +347,11 @@ CREATE TABLE `django_content_type` (
 
 INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (1, 'admin', 'logentry'),
+(13, 'app', 'booking'),
 (14, 'app', 'customers'),
 (15, 'app', 'orders'),
 (11, 'app', 'property'),
-(13, 'app', 'request'),
+(16, 'app', 'userpropertybookmark'),
 (3, 'auth', 'group'),
 (2, 'auth', 'permission'),
 (4, 'auth', 'user'),
@@ -475,7 +432,15 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (49, 'ipn', '0008_auto_20181128_1032', '2021-09-10 16:49:31.256157'),
 (50, 'app', '0005_property_slug', '2021-09-11 02:55:22.194176'),
 (51, 'app', '0002_auto_20210911_2003', '2021-09-11 14:19:00.991801'),
-(52, 'app', '0003_customers_orders_request', '2021-09-12 03:21:09.953364');
+(52, 'app', '0003_customers_orders_request', '2021-09-12 03:21:09.953364'),
+(53, 'app', '0004_auto_20210913_0631', '2021-09-17 16:30:44.788427'),
+(54, 'app', '0005_auto_20210917_1846', '2021-09-17 16:30:44.867477'),
+(55, 'app', '0006_auto_20210917_1916', '2021-09-17 16:30:45.106480'),
+(56, 'app', '0007_auto_20210917_1923', '2021-09-17 16:30:45.534477'),
+(57, 'app', '0008_auto_20210917_1928', '2021-09-17 16:30:45.671478'),
+(58, 'app', '0009_auto_20210917_2028', '2021-09-17 16:30:45.677487'),
+(59, 'app', '0010_auto_20210917_2030', '2021-09-18 04:21:11.472253'),
+(60, 'app', '0011_auto_20210917_2031', '2021-09-18 04:21:11.534258');
 
 -- --------------------------------------------------------
 
@@ -494,134 +459,36 @@ CREATE TABLE `django_session` (
 --
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
-('g6tivhs004kbuoehb8o9xejxuus7i0av', 'MDhhOTFlNDNkZTMyNWRiOGY1OWY0MzhlZGI3ODZkOTJmMjIxYzU2Zjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJmOTVhMzBjN2NhMTM5NjBjOGE3YjA3MjI3Yjc5OGEwOTNlZDdhODUzIn0=', '2021-09-26 03:04:25.740795');
+('g6tivhs004kbuoehb8o9xejxuus7i0av', 'MDhhOTFlNDNkZTMyNWRiOGY1OWY0MzhlZGI3ODZkOTJmMjIxYzU2Zjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJmOTVhMzBjN2NhMTM5NjBjOGE3YjA3MjI3Yjc5OGEwOTNlZDdhODUzIn0=', '2021-09-26 03:04:25.740795'),
+('y41wiqy3j42opmtufuq03h803umr2ulf', 'MDhhOTFlNDNkZTMyNWRiOGY1OWY0MzhlZGI3ODZkOTJmMjIxYzU2Zjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJmOTVhMzBjN2NhMTM5NjBjOGE3YjA3MjI3Yjc5OGEwOTNlZDdhODUzIn0=', '2021-10-01 16:29:45.960075');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `paypal_ipn`
+-- Table structure for table `orders`
 --
 
-CREATE TABLE `paypal_ipn` (
-  `id` int(11) NOT NULL,
-  `business` varchar(127) NOT NULL,
-  `charset` varchar(255) NOT NULL,
-  `custom` varchar(256) NOT NULL,
-  `notify_version` decimal(64,2) DEFAULT NULL,
-  `parent_txn_id` varchar(19) NOT NULL,
-  `receiver_email` varchar(254) NOT NULL,
-  `receiver_id` varchar(255) NOT NULL,
-  `residence_country` varchar(2) NOT NULL,
-  `test_ipn` tinyint(1) NOT NULL,
-  `txn_id` varchar(255) NOT NULL,
-  `txn_type` varchar(255) NOT NULL,
-  `verify_sign` varchar(255) NOT NULL,
-  `address_country` varchar(64) NOT NULL,
-  `address_city` varchar(40) NOT NULL,
-  `address_country_code` varchar(64) NOT NULL,
-  `address_name` varchar(128) NOT NULL,
-  `address_state` varchar(40) NOT NULL,
-  `address_status` varchar(255) NOT NULL,
-  `address_street` varchar(200) NOT NULL,
-  `address_zip` varchar(20) NOT NULL,
-  `contact_phone` varchar(20) NOT NULL,
-  `first_name` varchar(64) NOT NULL,
-  `last_name` varchar(64) NOT NULL,
-  `payer_business_name` varchar(127) NOT NULL,
-  `payer_email` varchar(127) NOT NULL,
-  `payer_id` varchar(13) NOT NULL,
-  `auth_amount` decimal(64,2) DEFAULT NULL,
-  `auth_exp` varchar(28) NOT NULL,
-  `auth_id` varchar(19) NOT NULL,
-  `auth_status` varchar(255) NOT NULL,
-  `exchange_rate` decimal(64,16) DEFAULT NULL,
-  `invoice` varchar(127) NOT NULL,
-  `item_name` varchar(127) NOT NULL,
-  `item_number` varchar(127) NOT NULL,
-  `mc_currency` varchar(32) NOT NULL,
-  `mc_fee` decimal(64,2) DEFAULT NULL,
-  `mc_gross` decimal(64,2) DEFAULT NULL,
-  `mc_handling` decimal(64,2) DEFAULT NULL,
-  `mc_shipping` decimal(64,2) DEFAULT NULL,
-  `memo` varchar(255) NOT NULL,
-  `num_cart_items` int(11) DEFAULT NULL,
-  `option_name1` varchar(64) NOT NULL,
-  `option_name2` varchar(64) NOT NULL,
-  `payer_status` varchar(255) NOT NULL,
-  `payment_date` datetime(6) DEFAULT NULL,
-  `payment_gross` decimal(64,2) DEFAULT NULL,
-  `payment_status` varchar(255) NOT NULL,
-  `payment_type` varchar(255) NOT NULL,
-  `pending_reason` varchar(255) NOT NULL,
-  `protection_eligibility` varchar(255) NOT NULL,
-  `quantity` int(11) DEFAULT NULL,
-  `reason_code` varchar(255) NOT NULL,
-  `remaining_settle` decimal(64,2) DEFAULT NULL,
-  `settle_amount` decimal(64,2) DEFAULT NULL,
-  `settle_currency` varchar(32) NOT NULL,
-  `shipping` decimal(64,2) DEFAULT NULL,
-  `shipping_method` varchar(255) NOT NULL,
-  `tax` decimal(64,2) DEFAULT NULL,
-  `transaction_entity` varchar(255) NOT NULL,
-  `auction_buyer_id` varchar(64) NOT NULL,
-  `auction_closing_date` datetime(6) DEFAULT NULL,
-  `auction_multi_item` int(11) DEFAULT NULL,
-  `for_auction` decimal(64,2) DEFAULT NULL,
-  `amount` decimal(64,2) DEFAULT NULL,
-  `amount_per_cycle` decimal(64,2) DEFAULT NULL,
-  `initial_payment_amount` decimal(64,2) DEFAULT NULL,
-  `next_payment_date` datetime(6) DEFAULT NULL,
-  `outstanding_balance` decimal(64,2) DEFAULT NULL,
-  `payment_cycle` varchar(255) NOT NULL,
-  `period_type` varchar(255) NOT NULL,
-  `product_name` varchar(255) NOT NULL,
-  `product_type` varchar(255) NOT NULL,
-  `profile_status` varchar(255) NOT NULL,
-  `recurring_payment_id` varchar(255) NOT NULL,
-  `rp_invoice_id` varchar(127) NOT NULL,
-  `time_created` datetime(6) DEFAULT NULL,
-  `amount1` decimal(64,2) DEFAULT NULL,
-  `amount2` decimal(64,2) DEFAULT NULL,
-  `amount3` decimal(64,2) DEFAULT NULL,
-  `mc_amount1` decimal(64,2) DEFAULT NULL,
-  `mc_amount2` decimal(64,2) DEFAULT NULL,
-  `mc_amount3` decimal(64,2) DEFAULT NULL,
-  `password` varchar(24) NOT NULL,
-  `period1` varchar(255) NOT NULL,
-  `period2` varchar(255) NOT NULL,
-  `period3` varchar(255) NOT NULL,
-  `reattempt` varchar(1) NOT NULL,
-  `recur_times` int(11) DEFAULT NULL,
-  `recurring` varchar(1) NOT NULL,
-  `retry_at` datetime(6) DEFAULT NULL,
-  `subscr_date` datetime(6) DEFAULT NULL,
-  `subscr_effective` datetime(6) DEFAULT NULL,
-  `subscr_id` varchar(19) NOT NULL,
-  `username` varchar(64) NOT NULL,
-  `case_creation_date` datetime(6) DEFAULT NULL,
-  `case_id` varchar(255) NOT NULL,
-  `case_type` varchar(255) NOT NULL,
-  `receipt_id` varchar(255) NOT NULL,
-  `currency_code` varchar(32) NOT NULL,
-  `handling_amount` decimal(64,2) DEFAULT NULL,
-  `transaction_subject` varchar(256) NOT NULL,
-  `ipaddress` char(39) DEFAULT NULL,
-  `flag` tinyint(1) NOT NULL,
-  `flag_code` varchar(16) NOT NULL,
-  `flag_info` longtext NOT NULL,
-  `query` longtext NOT NULL,
-  `response` longtext NOT NULL,
-  `created_at` datetime(6) NOT NULL,
-  `updated_at` datetime(6) NOT NULL,
-  `from_view` varchar(6) DEFAULT NULL,
-  `mp_id` varchar(128) DEFAULT NULL,
-  `option_selection1` varchar(200) NOT NULL,
-  `option_selection2` varchar(200) NOT NULL
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `app_booking`
+--
+ALTER TABLE `app_booking`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `app_booknow_user_id_cb4877a8_fk_auth_user_id` (`user_id`);
+
+--
+-- Indexes for table `app_customers`
+--
+ALTER TABLE `app_customers`
+  ADD PRIMARY KEY (`customerid`),
+  ADD KEY `app_customers_id_3d0770d0_fk_auth_user_id` (`id`);
 
 --
 -- Indexes for table `app_property`
@@ -631,11 +498,12 @@ ALTER TABLE `app_property`
   ADD KEY `app_property_slug_2fe2ba18` (`slug`);
 
 --
--- Indexes for table `app_request`
+-- Indexes for table `app_userpropertybookmark`
 --
-ALTER TABLE `app_request`
+ALTER TABLE `app_userpropertybookmark`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `app_request_user_id_c2fa2736_fk_auth_user_id` (`user_id`);
+  ADD KEY `app_userpropertybookmark_property_id_6a722951_fk_app_property_id` (`property_id`),
+  ADD KEY `app_userpropertybookmark_user_id_b7177bcc_fk_auth_user_id` (`user_id`);
 
 --
 -- Indexes for table `auth_group`
@@ -683,24 +551,6 @@ ALTER TABLE `auth_user_user_permissions`
   ADD KEY `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` (`permission_id`);
 
 --
--- Indexes for table `covid19_donateplasma`
---
-ALTER TABLE `covid19_donateplasma`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `covid19_otherrequest`
---
-ALTER TABLE `covid19_otherrequest`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `covid19_requestbed`
---
-ALTER TABLE `covid19_requestbed`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `django_admin_log`
 --
 ALTER TABLE `django_admin_log`
@@ -729,26 +579,35 @@ ALTER TABLE `django_session`
   ADD KEY `django_session_expire_date_a5c62663` (`expire_date`);
 
 --
--- Indexes for table `paypal_ipn`
+-- Indexes for table `orders`
 --
-ALTER TABLE `paypal_ipn`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `paypal_ipn_txn_id_8fa22c44` (`txn_id`);
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
+-- AUTO_INCREMENT for table `app_booking`
+--
+ALTER TABLE `app_booking`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `app_customers`
+--
+ALTER TABLE `app_customers`
+  MODIFY `customerid` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `app_property`
 --
 ALTER TABLE `app_property`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT for table `app_request`
+-- AUTO_INCREMENT for table `app_userpropertybookmark`
 --
-ALTER TABLE `app_request`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `app_userpropertybookmark`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `auth_group`
 --
@@ -763,7 +622,7 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT for table `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 --
 -- AUTO_INCREMENT for table `auth_user`
 --
@@ -780,21 +639,6 @@ ALTER TABLE `auth_user_groups`
 ALTER TABLE `auth_user_user_permissions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `covid19_donateplasma`
---
-ALTER TABLE `covid19_donateplasma`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `covid19_otherrequest`
---
-ALTER TABLE `covid19_otherrequest`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `covid19_requestbed`
---
-ALTER TABLE `covid19_requestbed`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT for table `django_admin_log`
 --
 ALTER TABLE `django_admin_log`
@@ -803,26 +647,39 @@ ALTER TABLE `django_admin_log`
 -- AUTO_INCREMENT for table `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 --
--- AUTO_INCREMENT for table `paypal_ipn`
+-- AUTO_INCREMENT for table `orders`
 --
-ALTER TABLE `paypal_ipn`
+ALTER TABLE `orders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `app_request`
+-- Constraints for table `app_booking`
 --
-ALTER TABLE `app_request`
-  ADD CONSTRAINT `app_request_user_id_c2fa2736_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+ALTER TABLE `app_booking`
+  ADD CONSTRAINT `app_booknow_user_id_cb4877a8_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `app_customers`
+--
+ALTER TABLE `app_customers`
+  ADD CONSTRAINT `app_customers_id_3d0770d0_fk_auth_user_id` FOREIGN KEY (`id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `app_userpropertybookmark`
+--
+ALTER TABLE `app_userpropertybookmark`
+  ADD CONSTRAINT `app_userpropertybookmark_property_id_6a722951_fk_app_property_id` FOREIGN KEY (`property_id`) REFERENCES `app_property` (`id`),
+  ADD CONSTRAINT `app_userpropertybookmark_user_id_b7177bcc_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
 
 --
 -- Constraints for table `auth_group_permissions`
