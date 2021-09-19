@@ -1,0 +1,73 @@
+<div class="modal fade" id="requestBedModal" tabindex="-1" role="dialog" aria-hidden="true">
+   <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+         <div class="modal-header no-bd">
+            <h5 class="modal-title">
+               <span class="fw-mediumbold">
+               Request Bed</span>                                                
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <p class="small">Please provide us the real information. Upon request, We will contact you back soon. </p>
+            {{message}}
+            <form action="/bookNow" method="post">
+               {% csrf_token %}
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="form-group form-group-default">
+                        <label>Name</label>
+                        <input id="full_name" required name="full_name" type="text" class="form-control" placeholder="Full Name">
+                     </div>
+                  </div>
+                  <div class="col-sm-12">
+                     <div class="form-group form-group-default">
+                        <label>Email</label>
+                        <input id="email" required name="email" type="email" class="form-control" placeholder="Email">
+                     </div>
+                  </div>
+                  
+                  <div class="col-md-6 pr-0">
+                     <div class="form-group form-group-default">
+                        <label>Contact No</label>
+                        <input id="contactNo" required name="contactNo" type="text" class="form-control" placeholder="Eg. 061-098-765434">
+                     </div>
+                  </div>
+
+                  <div class="col-md-6 pr-0">
+                     <div class="form-group form-group-default">
+                        <label>Address</label>
+                        <input id="streetAddress" required name="streetAddress" type="text" class="form-control" placeholder="Eg. 161 Sussex St">
+                     </div>
+                  </div>
+
+                 
+                  <div class="col-md-4 pr-0">
+                     <div class="form-group form-group-default">
+                        <label>Urgency</label>
+                        <select name="urgency" id="urgency" class="form-control">
+                           <option value="Moderate">Moderate</option>
+                           <option value="Not Urgent">Not Urgent</option>
+                           <option value="Urgent">Urgent</option>
+                        </select>
+                     </div>
+                  </div>
+                  
+                  <div class="col-md-12 pr-0">
+                     <div class="form-group form-group-default">
+                        <label>Your Query/Message</label>
+                        <textarea id="additionalInfo" name="additionalInfo" rows="4" cols="50" class="form-control"></textarea>
+                     </div>
+                  </div>
+               </div>
+               <div class="no-bd">
+                  <button type="submit" id="addRowButton"  class="btn btn-primary">Request</button>
+                  <button type="cancel" class="btn btn-danger" data-dismiss="modal">Close</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>

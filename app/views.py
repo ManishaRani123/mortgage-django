@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 
+from app.forms import BookNowForm
 from django.db.models import query
 from core.settings import ADMIN_EMAIL, CORE_DIR, DEFAULT_FROM_EMAIL, EMAIL_HOST_USER, EMAIL_USE_TLS, STATICFILES_DIRS
 from typing import Reversible
@@ -22,7 +23,7 @@ from django import template
 from django.contrib import messages
 from django.conf import settings
 from decimal import Decimal
-from .models import Property
+from .models import Property, Booking
 # from .forms import CartForm, CheckoutForm
 
 
@@ -95,6 +96,46 @@ def showProperty(request, Slug):
     data = Property.objects.get(slug = Slug)
     context = {'PropertyDetail': data}
     return render(request, "frontend/PropertyDetailView.html", context)
+
+# OtherRequest
+def bookNow(request):
+    message = ""
+    errorMessage = ""
+    
+    if request.method == 'POST':
+        form = Booking(request.POST)
+        if form.is_valid():
+            formData=form.save(commit=False)
+            emailBody = ("Requested By: " + request.POST.get('full_name') +
+                        "\n Message: " + request.POST.get('additionalInfo'))
+            
+            formData.save()
+
+            try:
+                emailtoAdmin(name = request.POST.get('full_name'),
+                            email = request.POST.get('email'),
+                            phone = request.POST.get('contactNo'),
+                            additionalMsg = emailBody)
+
+                sendNotifyEmail(name = request.POST.get('full_name'),
+                            email = request.POST.get('email'),
+                            requestType = request.POST.get('donor_option') + " Plasma")
+                errorMessage = "Email send successfully"
+                # send_mail('This is Test Email','This is Test Email', EMAIL_HOST_USER, 'aryalnishan@outlook.com', fail_silently = False)
+            except Exception as ex:
+                errorMessage = str(ex)
+
+            
+            message = "Saved Successfully"
+        else:
+            form = BookNowForm()
+            message = "Cannot Save. Please try again"
+    form = BookNowForm()
+    # allRequests = OtherRequest.objects.all()
+    return render(request, 'frontend/home.html', {'RequestForm': form, 'message': message, 'errorMessage':errorMessage})
+
+
+
 
 
 # def process_payment(request):

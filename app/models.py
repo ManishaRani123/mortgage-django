@@ -19,9 +19,9 @@ class Customers(models.Model):
     slug = models.SlugField(max_length=255, editable=True, verbose_name='Slug / URL')
     description = models.TextField(blank=True, null=True, verbose_name="Description")
     userid = models.ForeignKey(User, models.DO_NOTHING, db_column='id', blank=True, null=True)
-    class Meta:
-        managed = False
-        db_table = 'customers'
+    # class Meta:
+    #     managed = False
+    #     db_table = 'customers'
 
 class Orders(models.Model):
     orderid = models.AutoField(primary_key=True)
@@ -30,9 +30,9 @@ class Orders(models.Model):
     shipped = models.CharField(max_length=1, blank=True, null=True)
     # customerid = models.ForeignKey(Customers, models.DO_NOTHING, db_column='customerid', blank=True, null=True)
     customer = models.ForeignKey(Customers, models.DO_NOTHING, db_column='customerid', blank=True, null=True)
-    class Meta:
-        managed = False
-        db_table = 'orders'
+    # class Meta:
+    #     managed = False
+    #     db_table = 'orders'
 
 
 
@@ -95,7 +95,7 @@ class Property(models.Model):
     isFeatured = models.BooleanField(default=True, verbose_name="Is Featured")
 
 
-class Request(models.Model):
+class Booking(models.Model):
     Urgency_Options = [
         ('Urgent', 'Urgent'),
         ('Moderate', 'Moderate'),
@@ -109,14 +109,24 @@ class Request(models.Model):
         ('Approved', 'Approved'),
         ('Unspecified', 'Unspecified')
     ]
-    id = models.AutoField(primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='User')
+    id = models.AutoField(primary_key=True, unique=True)
+    # user = models.ManyToManyField(User)
+    user = models.ForeignKey(User,  on_delete=models.CASCADE)
     full_name = models.CharField(max_length=200, verbose_name='Full Name')
-    age = models.IntegerField()
     email = models.CharField(max_length=128, verbose_name='Email', null=True)
-    contactNo = models.CharField(max_length=30, verbose_name='Contact No')
+    contactNo = models.CharField(max_length=30, verbose_name='Contact No', default="-")
+    addess = models.CharField(max_length=255, verbose_name='Address', default="-")
     urgency = models.CharField(choices=Urgency_Options,default='Not Urgent', max_length=40, verbose_name='Urgency') 
     additionalInfo = models.TextField(verbose_name='Additional Information', blank=True, null=True)
     requestOn = models.DateTimeField(auto_now_add=True, blank=True, verbose_name="Request Date")
     seenStatus = models.BooleanField(default=False, verbose_name='Seen Status')
     action_status = models.CharField(choices=Action_Status,default='Receive', blank=True, max_length=200, verbose_name='Plasma Donate')
+
+    def __str__(self):
+        return self.full_name
+
+
+class UserPropertyBookmark(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    bookmarkedOn =  models.DateTimeField(auto_now_add=True, blank=True, verbose_name="Bookmarked On")

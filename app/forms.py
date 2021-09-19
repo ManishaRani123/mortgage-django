@@ -1,14 +1,12 @@
-from app.models import DonatePlasma, OtherRequest, RequestBed
+from app.models import Booking
 from django import forms
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
-
 
 PAYMENT_CHOICES = (
     ('S', 'Stripe'),
     ('P', 'PayPal')
 )
-
 
 class CheckoutForm(forms.Form):
     shipping_address = forms.CharField(required=False)
@@ -45,15 +43,15 @@ class PaymentForm(forms.Form):
 
 
 
-class RequestForm(forms.ModelForm):
+class BookNowForm(forms.ModelForm):
     class Meta:
-        model= Request
+        model= Booking
         exclude = ('requestOn','seenStatus','action_status')
 
 def clean(self):
-    cleaned_data = super(RequestBed, self).clean()
+    cleaned_data = super(Booking, self).clean()
     name = cleaned_data.get('name')
     email = cleaned_data.get('email')
-    age = cleaned_data.get('age')
-    if not name and not email and not age:
+    address = cleaned_data.get('address')
+    if not name and not email and not address:
         raise forms.ValidationError('You have to write something!')

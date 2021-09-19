@@ -9,15 +9,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-
     # The home page
     path('', views.index, name="home"),
 
     path('listings/<slug:Slug>/',
         views.showProperty, name='showProperty'),
 
-    path('search/<slug:PropType>/',
-        views.search, name='search')
+    path('search/<slug:PropType>/', views.search, name='search'),
+    path('bookNow', views.bookNow, name="bookNow"),
 
 
     # static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
